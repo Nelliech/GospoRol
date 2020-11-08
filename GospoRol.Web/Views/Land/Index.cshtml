@@ -1,0 +1,65 @@
+﻿@model GospoRol.Application.ViewModels.ListLandForListVm
+
+
+@{
+    ViewData["Title"] = "Index";
+   
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Index" asp-controller="Land">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model=>model.Lands[0].PlotNumber)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Lands[0].Acreage)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Lands[0].AcreageFree)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Lands[0].AcreageOccupied)
+
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lands)
+            {
+            <tr>
+                <td hidden="">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlotNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Acreage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcreageFree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcreageOccupied)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>
