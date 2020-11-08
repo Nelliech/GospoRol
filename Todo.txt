@@ -1,1 +1,1 @@
-﻿Ogarnać czy w przypadku Fields i innych warto dawać userID , czy wystarczy tylko numer Land
+﻿
