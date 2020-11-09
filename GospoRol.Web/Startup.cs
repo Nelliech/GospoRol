@@ -45,6 +45,8 @@ namespace GospoRol.Web
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
+                
+                
             });
         }
 

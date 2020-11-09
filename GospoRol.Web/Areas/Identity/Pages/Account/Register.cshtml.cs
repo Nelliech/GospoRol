@@ -50,7 +50,7 @@ namespace GospoRol.Web.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Hasło jest obowiązkowe")]
             [StringLength(25, ErrorMessage = "{0} musi mięc co najmniej {2} i maksymalnie {1} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
@@ -76,36 +76,37 @@ namespace GospoRol.Web.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                //if (result.Succeeded)
-                //{
-                //    _logger.LogInformation("User created a new account with password.");
+                if (result.Succeeded)
+                {
+                    //_logger.LogInformation("User created a new account with password.");
 
-                //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                //    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                //    var callbackUrl = Url.Page(
-                //        "/Account/ConfirmEmail",
-                //        pageHandler: null,
-                //        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                //        protocol: Request.Scheme);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
 
-                //    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                //    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                //    {
-                //        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                //    }
-                //    else
-                //    {
-                //        await _signInManager.SignInAsync(user, isPersistent: false);
-                //        return LocalRedirect(returnUrl);
-                //    }
-                //}
-                return RedirectToPage("Login");
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError(string.Empty, error.Description);
-                //}
+                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //{
+                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    //}
+                    //else
+                    //{
+                    //    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //    return LocalRedirect(returnUrl);
+                    //}
+                    return RedirectToPage("Login");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
             // If we got this far, something failed, redisplay form
