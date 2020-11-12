@@ -54,5 +54,12 @@ namespace GospoRol.Application.Services
             };
             return landList;
         }
+
+        public NewLandVm GetLandById(int landId)
+        {
+            var land = _landRepository.GetLandById(landId);
+            var landVm = _mapper.Map<NewLandVm>(land);
+            return landVm;
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace GospoRol.Application.Interfaces
         int AddLand(NewLandVm land,string userId);
         ListLandForListVm GetAllLandForList(string userId);
         ListLandNameForListVm GetAllLandForListDrop(string userId);
-        NewLandVm GetLandById(in int landId);
+        NewLandVm GetLandById(int landId);
     }
 }
