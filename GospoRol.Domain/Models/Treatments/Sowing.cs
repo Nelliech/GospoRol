@@ -7,8 +7,8 @@ namespace GospoRol.Domain.Models.Treatments
     {
         public double WidthBetweenRows { get; set; }//szerokość rzedow 
         public int NumberRows { get; set; }//ilość rzędów 
-        public double HowManyHa { get; set; }       //Ile na ha(sztuk/mk2, kg/ha, ) ----
-        public double DepthSowing { get; set; }
+        public decimal HowManyHa { get; set; }       //Ile na ha(sztuk/mk2, kg/ha, ) ----
+        public decimal DepthSowing { get; set; }
         public int SeedId { get; set; }
         public virtual Seed Seed { get; set; }
         public int TypeSowingId { get; set; }       //Metody siewu (Siew gniazdowy,Siew punktowy,Siew rzędowy,Siew rzutowy)

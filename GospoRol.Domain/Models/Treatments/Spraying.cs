@@ -6,7 +6,7 @@ namespace GospoRol.Domain.Models.Treatments
     public class Spraying : BaseTreatment // ochrony roślin    // nazwa ??
     {
         public string NameProduct { get; set; }         //Nazwa substancij --
-        public double Dose { get; set; }                //Dawka----b
+        public decimal Dose { get; set; }                //Dawka----b
         public string Unit { get; set; }                //Jednostka (L/ha, kg/ha, %)-----
         public string Reason { get; set; }              //Powód zastosowania  
         

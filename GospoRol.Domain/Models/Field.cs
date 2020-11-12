@@ -8,10 +8,10 @@ namespace GospoRol.Domain.Models
     public class Field : BaseEntity//Pole
     {
         public string FieldName { get; set; }
-        public double Acreage { get; set; }             //Areał
+        public decimal Acreage { get; set; }             //Areał
         public string CultivatedPlant { get; set; }     //Uprawiana Roślina
         public string Variety { get; set; }             //Odmiana? 
-        public double DistanceToWarehouse { get; set; } //Odległość od magazynu
+        public decimal DistanceToWarehouse { get; set; } //Odległość od magazynu
         public int AgriculturalClassId { get; set; }
         public AgriculturalClass AgriculturalClass { get; set; }
         public int LandId { get; set; }

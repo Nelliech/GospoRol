@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="AddField">Create New</a>
+    <a asp-action="AddField">Dodaj nowe pole.</a>
 </p>
 <table class="table">
     <thead>
@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Land.PlotNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new {item.Id}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
