@@ -48,9 +48,9 @@ namespace GospoRol.Web.Controllers
 
             return View(model);
         }
-        public IActionResult EditLand(int landId)
+        public IActionResult EditLand(int id)
         {
-            var land = _landService.GetLandById(landId);
+            var land = _landService.GetLandById(id);
             return View(land);
         }
 
@@ -58,10 +58,10 @@ namespace GospoRol.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditLand(NewLandVm model)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           
             if (ModelState.IsValid)
             {
-                var id = _landService.AddLand(model, userId);
+                _landService.UpdateLand(model);
                 return RedirectToAction("Index");
             }
 

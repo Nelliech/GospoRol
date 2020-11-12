@@ -61,5 +61,12 @@ namespace GospoRol.Application.Services
             var landVm = _mapper.Map<NewLandVm>(land);
             return landVm;
         }
+
+        public void UpdateLand(NewLandVm model)
+        {
+            var newLand = _mapper.Map<Land>(model);
+            _landRepository.UpdateLand(newLand);
+
+        }
     }
 }

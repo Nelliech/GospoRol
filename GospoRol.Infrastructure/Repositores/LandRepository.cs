@@ -11,9 +11,13 @@ namespace GospoRol.Infrastructure.Repositores
 
         private readonly Context _context;
 
+
+
         public LandRepository(Context context)
         {
             _context = context;
+       
+
         }
         public int AddLand(Land land)
         {
@@ -39,9 +43,15 @@ namespace GospoRol.Infrastructure.Repositores
             _context.SaveChanges();
 
         }
-        public void UpdateLand(Land land)
+        public void UpdateLand(Land land)    //WFUUUJ PROBLEM  System.InvalidOperationException
         {
-            throw new System.NotImplementedException();
+            var oldLand = _context.Lands.Find(land.Id);
+
+            _context.Attach(land);
+            _context.Entry(land).Property("PlotNumber").IsModified = true;
+            _context.Entry(land).Property("Acreage").IsModified = true;
+            _context.Entry(land).Property("AcreageFree").IsModified = true;
+            _context.SaveChanges();
         }
         public Land GetLandById(int landId)
         {

@@ -42,5 +42,6 @@ namespace GospoRol.Infrastructure
             builder.SendInitialData();
 
         }
+       
     }
 }
