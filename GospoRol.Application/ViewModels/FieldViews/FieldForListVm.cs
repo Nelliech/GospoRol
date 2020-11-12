@@ -11,7 +11,7 @@ namespace GospoRol.Application.ViewModels
         [DisplayName("Nazwa Pola")]
         public string FieldName { get; set; }
         [DisplayName("Areał")]
-        public double Acreage { get; set; }
+        public decimal Acreage { get; set; }
         [DisplayName("Uprawiana roślina")]
         public string CultivatedPlant { get; set; }
         [DisplayName("Odmiana uprawianej rośliny")]
@@ -19,7 +19,7 @@ namespace GospoRol.Application.ViewModels
         [DisplayName("Klasa gruntu rolnego")]
         public AgriculturalClass AgriculturalClass { get; set; }
         [DisplayName("Odległość do magazynu")]
-        public double DistanceToWarehouse { get; set; }
+        public decimal DistanceToWarehouse { get; set; }
         [DisplayName("Numer działki")]
         public Land Land { get; set; }
 

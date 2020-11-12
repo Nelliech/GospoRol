@@ -12,11 +12,11 @@ namespace GospoRol.Application.ViewModels
         [DisplayName("Numer Działki")]
         public string PlotNumber { get; set; }          //Numer Działki
         [DisplayName("Areał")]
-        public double Acreage { get; set; }                 //areał
+        public decimal Acreage { get; set; }                 //areał
         [DisplayName("Wolny Areał")]
-        public double AcreageFree { get; set; }             //Wolny areał
+        public decimal AcreageFree { get; set; }             //Wolny areał
         [DisplayName("Zajęty Areał")]
-        public double AcreageOccupied { get; set; }         //zajęty Areał
+        public decimal AcreageOccupied { get; set; }         //zajęty Areał
         public string UserId { get; set; }
         public void Mapping(Profile profile)
         {
