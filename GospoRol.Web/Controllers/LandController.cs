@@ -48,5 +48,24 @@ namespace GospoRol.Web.Controllers
 
             return View(model);
         }
+        public IActionResult EditLand(int landId)
+        {
+            var land = _landService.GetLandById(landId);
+            return View(land);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditLand(NewLandVm model)
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (ModelState.IsValid)
+            {
+                var id = _landService.AddLand(model, userId);
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
     }
 }
