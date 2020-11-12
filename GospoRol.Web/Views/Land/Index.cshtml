@@ -54,9 +54,8 @@
                     @Html.DisplayFor(modelItem => item.AcreageOccupied)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edytuj", "EditLand", new {item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { item.Id }) |
                 </td>
             </tr>
             }
