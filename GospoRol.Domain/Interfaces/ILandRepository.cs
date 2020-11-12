@@ -9,7 +9,7 @@ namespace GospoRol.Domain.Interfaces
         int AddLand(Land land);
         void DeleteLand(int landId);
         void UpdateLand(Land land);
-        void ChangeAcreageOccupied(double acreageFields, int landId);
+        void ChangeAcreageOccupied(decimal acreageFields, int landId);
         Land GetLandById(int landId);
         IQueryable<Land> GetAllLand(string userId);
 

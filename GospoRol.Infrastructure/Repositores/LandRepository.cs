@@ -34,7 +34,7 @@ namespace GospoRol.Infrastructure.Repositores
                 _context.SaveChanges();
             }
         }
-        public void ChangeAcreageOccupied(double acreageFields, int landId)
+        public void ChangeAcreageOccupied(decimal acreageFields, int landId)
         {
             var land = _context.Lands.Find(landId);
             land.AcreageOccupied = land.AcreageOccupied + acreageFields;
