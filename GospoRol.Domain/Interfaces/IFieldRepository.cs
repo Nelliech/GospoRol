@@ -10,5 +10,7 @@ namespace GospoRol.Domain.Interfaces
         void UpdateField(Field field);
         Field GetFieldById(int fieldId);
         IQueryable<Field> GetAllFields(string userId);
+        IQueryable<Field> GetAllFields(int landId);
+
     }
 }

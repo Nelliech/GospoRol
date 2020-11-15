@@ -1,0 +1,60 @@
+﻿@model GospoRol.Application.ViewModels.ListFieldForListVm
+
+@{
+    ViewData["Title"] = "DeleteLand";
+}
+
+<h1>DeleteLand</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fields[0].FieldName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fields[0].Acreage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fields[0].CultivatedPlant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fields[0].Variety)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fields[0].AgriculturalClass.Class)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Fields) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FieldName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Acreage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CultivatedPlant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variety)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgriculturalClass.Class)
+            </td>
+        </tr>
+    }
+    </tbody>
+    
+    <thead>
+    </thead>
+</table>
+<div>
+    Podczas usuwania Gruntu Rolnego "@Html.DisplayFor(model => model.Fields[0].Land.PlotNumber)", usuniesz również
+    wszystkie związane z nim pola uprawowe.
+    @Html.ActionLink("Usuń", "DeleteLandContinue", new { Model.Fields[0].Land.Id })
+    @Html.ActionLink("Wróć", "Index", new { })
+</div>

@@ -11,7 +11,7 @@ namespace GospoRol.Infrastructure
             services.AddTransient<ILandRepository, LandRepository>();
             services.AddTransient<IFieldRepository, FieldRepository>();
             services.AddTransient<IAgriculturalClassRepository, AgriculturalClassRepository>();
-
+            services.AddTransient<IWarehouseRepository, WarehouseRepository>();
 
             return services;
         }

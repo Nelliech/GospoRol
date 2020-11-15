@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Twoje Pola</h1>
 
 <p>
-    <a asp-action="AddField">Dodaj nowe pole.</a>
+    <a asp-action="AddField">Dodaj nowe pole!</a>
 </p>
 <table class="table">
     <thead>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.FieldName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Acreage)
+                @Html.DisplayFor(modelItem => item.Acreage) ha
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CultivatedPlant)
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Land.PlotNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {item.Id}) |
+                @Html.ActionLink("Edit", "EditField", new {item.Id}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "DeleteField", new {item.Id})
             </td>
         </tr>
 }

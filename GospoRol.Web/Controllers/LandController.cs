@@ -16,11 +16,13 @@ namespace GospoRol.Web.Controllers
     public class LandController : Controller
     {
         private readonly ILandService _landService;
+        private readonly IFieldService _fieldService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LandController(ILandService landService, IHttpContextAccessor httpContextAccessor)
+        public LandController(ILandService landService,IFieldService fieldService, IHttpContextAccessor httpContextAccessor)
         {
             _landService = landService;
+            _fieldService = fieldService;
             _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Index()
@@ -56,16 +58,32 @@ namespace GospoRol.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditLand(NewLandVm model)
+        public IActionResult EditLand(NewLandVm model, decimal oldAcreage, decimal oldAcreageFree)
         {
-           
+            
             if (ModelState.IsValid)
             {
-                _landService.UpdateLand(model);
+                _landService.UpdateLand(model, oldAcreage, oldAcreageFree);
                 return RedirectToAction("Index");
             }
 
             return View(model);
+        }
+        public IActionResult DeleteLand(int id) // Usuwa również field który był powiązany !!!
+        {
+            var model=_fieldService.GetAllFieldForList(id);
+            if (model.Count == 0)
+            {
+                _landService.DeleteLand(id);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteLandContinue(int id)
+        {
+            _landService.DeleteLand(id);
+            return RedirectToAction("Index");
         }
     }
 }

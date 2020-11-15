@@ -43,10 +43,8 @@ namespace GospoRol.Infrastructure.Repositores
             _context.SaveChanges();
 
         }
-        public void UpdateLand(Land land)    //WFUUUJ PROBLEM  System.InvalidOperationException
+        public void UpdateLand(Land land)
         {
-            var oldLand = _context.Lands.Find(land.Id);
-
             _context.Attach(land);
             _context.Entry(land).Property("PlotNumber").IsModified = true;
             _context.Entry(land).Property("Acreage").IsModified = true;

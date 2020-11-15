@@ -62,11 +62,24 @@ namespace GospoRol.Application.Services
             return landVm;
         }
 
-        public void UpdateLand(NewLandVm model)
+        public void UpdateLand(NewLandVm model,decimal oldAcreage, decimal oldAcreageFree)
         {
             var newLand = _mapper.Map<Land>(model);
+            if (newLand.Acreage>oldAcreage)
+            {
+                newLand.AcreageFree = newLand.AcreageFree + (newLand.Acreage - oldAcreage);
+            }
+            else
+            {
+                newLand.AcreageFree = newLand.AcreageFree - (oldAcreage - newLand.Acreage);
+            }
             _landRepository.UpdateLand(newLand);
 
+        }
+
+        public void DeleteLand(int landId)
+        {
+            _landRepository.DeleteLand(landId);
         }
     }
 }

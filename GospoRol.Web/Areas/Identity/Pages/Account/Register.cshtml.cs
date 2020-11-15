@@ -100,7 +100,7 @@ namespace GospoRol.Web.Areas.Identity.Pages.Account
                     //    await _signInManager.SignInAsync(user, isPersistent: false);
                     //    return LocalRedirect(returnUrl);
                     //}
-                    return RedirectToPage("Login");
+                    return RedirectToPage("RegisterEnd");
                 }
 
                 foreach (var error in result.Errors)

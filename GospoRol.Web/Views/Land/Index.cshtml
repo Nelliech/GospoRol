@@ -3,10 +3,10 @@
 
 @{
     ViewData["Title"] = "Index";
-   
+
 }
 
-<h1>Index</h1>
+<h1>Twoje Grunty Rolne</h1>
 
 <p>
     <a asp-action="AddLand">Dodaj nowy grunt rolny.</a>
@@ -14,25 +14,30 @@
 <form asp-action="Index" asp-controller="Land">
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model=>model.Lands[0].PlotNumber)
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lands[0].PlotNumber)
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model=>model.Lands[0].Acreage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lands[0].Acreage) 
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model=>model.Lands[0].AcreageFree)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lands[0].AcreageFree) 
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model=>model.Lands[0].AcreageOccupied)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.Lands[0].AcreageOccupied) 
 
-            </th>
-            <th></th>
-        </tr>
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Lands[0].Fields) 
+
+                </th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Lands)
@@ -45,16 +50,20 @@
                     @Html.DisplayFor(modelItem => item.PlotNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Acreage)
+                    @Html.DisplayFor(modelItem => item.Acreage) ha 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AcreageFree)
+                    @Html.DisplayFor(modelItem => item.AcreageFree) ha 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AcreageOccupied)
+                    @Html.DisplayFor(modelItem => item.AcreageOccupied) ha
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "EditLand", new {item.Id }) |
+                    @Html.DisplayFor(modelItem => item.Fields.Count) 
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditLand", new { item.Id }) |
+                    @Html.ActionLink("Usuń", "DeleteLand", new { item.Id }) |
                     @Html.ActionLink("Details", "Details", new { item.Id }) |
                 </td>
             </tr>

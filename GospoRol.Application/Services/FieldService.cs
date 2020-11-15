@@ -42,6 +42,21 @@ namespace GospoRol.Application.Services
             };
             return fieldList;
         }
-        
+
+        public ListFieldForListVm GetAllFieldForList(int landId)
+        {
+            var fields = _fieldRepository.GetAllFields(landId).ProjectTo<FieldForListVm>(_mapper.ConfigurationProvider).ToList();
+            var fieldList = new ListFieldForListVm()
+            {
+                Count = fields.Count,
+                Fields = fields
+            };
+            return fieldList;
+        }
+
+        public void DeleteField(int fieldId)
+        {
+            _fieldRepository.DeleteField(fieldId);
+        }
     }
 }

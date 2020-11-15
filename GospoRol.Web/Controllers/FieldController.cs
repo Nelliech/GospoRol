@@ -68,5 +68,10 @@ namespace GospoRol.Web.Controllers
 
             return View(model);
         }
+        public IActionResult DeleteField(int id)
+        {
+            _fieldService.DeleteField(id);
+            return RedirectToAction("Index");
+        }
     }
 }

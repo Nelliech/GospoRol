@@ -11,6 +11,7 @@ namespace GospoRol.Application.Interfaces
         ListLandForListVm GetAllLandForList(string userId);
         ListLandNameForListVm GetAllLandForListDrop(string userId);
         NewLandVm GetLandById(int landId);
-        void UpdateLand(NewLandVm model);
+        void UpdateLand(NewLandVm model, decimal oldAcreage, decimal oldAcreageFree);
+        void DeleteLand(int landId);
     }
 }

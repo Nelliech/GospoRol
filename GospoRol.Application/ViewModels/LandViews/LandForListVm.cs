@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using AutoMapper;
 using GospoRol.Application.Mapping;
 using GospoRol.Domain.Models;
@@ -16,6 +17,8 @@ namespace GospoRol.Application.ViewModels
         public decimal AcreageFree { get; set; }             //Wolny areał
         [DisplayName("Zajęty Areał")]
         public decimal AcreageOccupied { get; set; }         //zajęty Areał
+        [DisplayName("Ilość Pol")]
+        public List<Field> Fields { get; set; }
         public string UserId { get; set; }
 
 

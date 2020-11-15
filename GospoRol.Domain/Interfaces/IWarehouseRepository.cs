@@ -1,4 +1,5 @@
-﻿using GospoRol.Domain.Models;
+﻿using System.Linq;
+using GospoRol.Domain.Models;
 
 namespace GospoRol.Domain.Interfaces
 {
@@ -8,5 +9,7 @@ namespace GospoRol.Domain.Interfaces
         void DeleteWarehouse(int warehouseId);
         void UpdateWarehouse(Warehouse warehouse);
         Warehouse GetWarehouseById(int warehouseId);
+        IQueryable<Warehouse> GettAllWarehouses(string userId);
+        int HowManyProducts(int warehouseId);
     }
 }

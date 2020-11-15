@@ -1,12 +1,11 @@
 ﻿@model GospoRol.Application.ViewModels.NewLandVm
  
 @{
-    ViewData["Title"] = "EditLand";
+    ViewData["Title"] = "Edycja";
 }
 
-<h1>EditLand</h1>
+<h1>Edytuj Grunt Rolny</h1>
 
-<h4>NewLandVm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,6 +24,8 @@
                 <input asp-for="Acreage" class="form-control" />
                 <span asp-validation-for="Acreage" class="text-danger"></span>
             </div>
+            <input type="hidden" name="oldAcreage" value="@Model.Acreage" />
+            <input type="hidden" name="oldAcreageFree" value="@Model.AcreageFree" />
             <div class="form-group">
                 <input type="hidden" asp-for="AcreageFree" class="form-control" />
             </div>
@@ -35,14 +36,14 @@
                 <input type="hidden" asp-for="UserId" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Wróć</a>
 </div>
 
 @section Scripts {

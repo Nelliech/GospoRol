@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GospoRol.Domain.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Land" asp-action="Index">Grunty Rolne</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Field" asp-action="Index">Twoje Pola</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Index">Twoje Magazyny</a>
+            </li>
+        </ul>
+    </nav>
+}

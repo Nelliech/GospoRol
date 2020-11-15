@@ -1,0 +1,52 @@
+﻿@model GospoRol.Application.ViewModels.WarehouseViews.ListWarehouseForListVm
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="AddWarehouse">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Warehouses[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Warehouses[0].Acreage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Warehouses[0].Products)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Warehouses)
+        {
+        <tr>
+            <td hidden="">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Acreage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "EditWarehouse", new {item.Id }) |
+                @Html.ActionLink("Szczegoły", "DetailsWarehouse", new { item.Id }) |
+                @Html.ActionLink("Usuń", "DeleteWarehouse", new { item.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

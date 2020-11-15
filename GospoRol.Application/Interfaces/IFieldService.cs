@@ -6,5 +6,7 @@ namespace GospoRol.Application.Interfaces
     {
         int AddField(NewFieldVm newField, int landId, string userId);
         ListFieldForListVm GetAllFieldForList(string userId);
+        ListFieldForListVm GetAllFieldForList(int landId);
+        void DeleteField(int id);
     }
 }

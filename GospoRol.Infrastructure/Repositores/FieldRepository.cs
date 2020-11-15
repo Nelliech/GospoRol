@@ -44,12 +44,14 @@ namespace GospoRol.Infrastructure.Repositores
             return _context.Fields.Find(fieldId);
         }
 
-        
-
-
         public IQueryable<Field> GetAllFields(string userId)
         {
             return _context.Fields.Where(p => p.UserId == userId);
+        }
+
+        public IQueryable<Field> GetAllFields(int landId)
+        {
+            return _context.Fields.Where(p => p.LandId == landId);
         }
     }
 }

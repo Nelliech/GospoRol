@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GospoRol.Application;
 using GospoRol.Domain.Models;
 using GospoRol.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -39,7 +40,6 @@ namespace GospoRol.Web
             services.AddInfrastructures();      //Infrastructure/DependencyInjection
             services.AddControllersWithViews();
             services.AddRazorPages();
-            
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;

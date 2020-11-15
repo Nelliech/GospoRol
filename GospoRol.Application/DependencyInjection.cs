@@ -13,7 +13,7 @@ namespace GospoRol.Application
             services.AddTransient<ILandService, LandService>();
             services.AddTransient<IFieldService, FieldService>();
             services.AddTransient<IAgriculturalClassService, AgriculturalClassService>();
-
+            services.AddTransient<IWarehouseService, WarehouseService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
