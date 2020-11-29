@@ -19,7 +19,72 @@ namespace GospoRol.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GospoRol.Domain.Models.AgriculturalClass", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.AgriculturalClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,72 +152,7 @@ namespace GospoRol.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Field", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Field", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,7 +194,7 @@ namespace GospoRol.Infrastructure.Migrations
                     b.ToTable("Fields");
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.Land", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Land", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -223,6 +223,29 @@ namespace GospoRol.Infrastructure.Migrations
                     b.ToTable("Lands");
                 });
 
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Acreage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Warehouses");
+                });
+
             modelBuilder.Entity("GospoRol.Domain.Models.Products.Fertilizer", b =>
                 {
                     b.Property<int>("Id")
@@ -230,8 +253,17 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Concentration")
+                    b.Property<string>("AdditionalInformation")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Capacity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Concentration")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("FertilizerComposition")
                         .HasColumnType("nvarchar(max)");
@@ -242,22 +274,27 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("Producer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("TypeFertilizerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeFertilizerId")
+                    b.Property<int>("TypeProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TypeFertilizerId");
 
+                    b.HasIndex("TypeProductId");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Fertilizers");
                 });
@@ -272,6 +309,9 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<decimal>("Capacity")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -284,32 +324,53 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("Producer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TypePesticideId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TypeProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("TypePesticideId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TypeProductId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Pesticides");
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.Products.Product", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.Products.Seed", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Capacity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NamePlant")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlantVariety")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("Money");
+
+                    b.Property<string>("Producer")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TypeProductId")
                         .HasColumnType("int");
@@ -327,40 +388,6 @@ namespace GospoRol.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.HasIndex("WarehouseId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Products.Seed", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("NamePlant")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlantVariety")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Producer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SeedingRate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Seeds");
                 });
@@ -508,7 +535,57 @@ namespace GospoRol.Infrastructure.Migrations
                         {
                             Id = 3,
                             Name = "Pestycydy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Plony Rolne"
                         });
+                });
+
+            modelBuilder.Entity("GospoRol.Domain.Models.Products.Yield", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Count")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("HarvestRef")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NamePlant")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlantVariety")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Unit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HarvestRef")
+                        .IsUnique();
+
+                    b.HasIndex("TypeProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("Yields");
                 });
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Cultivation", b =>
@@ -979,29 +1056,6 @@ namespace GospoRol.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.Warehouse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Acreage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Warehouses");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1137,15 +1191,15 @@ namespace GospoRol.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.Field", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Field", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.AgriculturalClass", "AgriculturalClass")
+                    b.HasOne("GospoRol.Domain.Models.Places.AgriculturalClass", "AgriculturalClass")
                         .WithMany("Fields")
                         .HasForeignKey("AgriculturalClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GospoRol.Domain.Models.Land", "Land")
+                    b.HasOne("GospoRol.Domain.Models.Places.Land", "Land")
                         .WithMany("Fields")
                         .HasForeignKey("LandId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1156,7 +1210,14 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("GospoRol.Domain.Models.Land", b =>
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Land", b =>
+                {
+                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GospoRol.Domain.Models.Places.Warehouse", b =>
                 {
                     b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
                         .WithMany()
@@ -1165,42 +1226,14 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Products.Fertilizer", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Products.Product", null)
-                        .WithMany("Fertilizers")
-                        .HasForeignKey("ProductId");
-
                     b.HasOne("GospoRol.Domain.Models.Products.TypeFertilizer", "TypeFertilizer")
                         .WithMany("Fertilizers")
                         .HasForeignKey("TypeFertilizerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Products.Pesticide", b =>
-                {
-                    b.HasOne("GospoRol.Domain.Models.Products.Product", null)
-                        .WithMany("Pesticides")
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("GospoRol.Domain.Models.Products.TypePesticide", "TypePesticide")
-                        .WithMany("Pesticides")
-                        .HasForeignKey("TypePesticideId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Products.Product", b =>
-                {
                     b.HasOne("GospoRol.Domain.Models.Products.TypeProduct", "TypeProduct")
-                        .WithMany("Products")
+                        .WithMany("Fertilizers")
                         .HasForeignKey("TypeProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1209,8 +1242,29 @@ namespace GospoRol.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("GospoRol.Domain.Models.Warehouse", "Warehouse")
-                        .WithMany("Products")
+                    b.HasOne("GospoRol.Domain.Models.Places.Warehouse", "Warehouse")
+                        .WithMany("Fertilizers")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GospoRol.Domain.Models.Products.Pesticide", b =>
+                {
+                    b.HasOne("GospoRol.Domain.Models.Products.TypePesticide", "TypePesticide")
+                        .WithMany("Pesticides")
+                        .HasForeignKey("TypePesticideId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Products.TypeProduct", "TypeProduct")
+                        .WithMany("Pesticides")
+                        .HasForeignKey("TypeProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Places.Warehouse", "Warehouse")
+                        .WithMany("Pesticides")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1218,13 +1272,46 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Products.Seed", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Products.Product", null)
+                    b.HasOne("GospoRol.Domain.Models.Products.TypeProduct", "TypeProduct")
                         .WithMany("Seeds")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("TypeProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.HasOne("GospoRol.Domain.Models.Places.Warehouse", "Warehouse")
+                        .WithMany("Seeds")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GospoRol.Domain.Models.Products.Yield", b =>
+                {
+                    b.HasOne("GospoRol.Domain.Models.Treatments.Harvest", "Harvest")
+                        .WithOne("Yield")
+                        .HasForeignKey("GospoRol.Domain.Models.Products.Yield", "HarvestRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Products.TypeProduct", "TypeProduct")
+                        .WithMany()
+                        .HasForeignKey("TypeProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("GospoRol.Domain.Models.Places.Warehouse", "Warehouse")
+                        .WithMany("Yields")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Cultivation", b =>
@@ -1343,7 +1430,7 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Treatment", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Field", "Field")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
                         .WithMany("Treatments")
                         .HasForeignKey("FieldId");
 
@@ -1352,13 +1439,6 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Warehouse", b =>
-                {
-                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

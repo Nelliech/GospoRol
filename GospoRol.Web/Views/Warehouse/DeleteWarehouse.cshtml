@@ -1,0 +1,36 @@
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.WarehouseViewModels.WarehouseForListVm
+
+@{
+    ViewData["Title"] = "DeleteWarehouse";
+}
+
+<h1>DeleteWarehouse</h1>
+
+<div>
+    <h4>WarehouseForListVm</h4>
+    <hr />
+
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountProducts)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountProducts)
+        </dd>
+    </dl>
+    <span>
+        Podczas usówania magazynu, usuniesz również związane z nim produkty 
+    </span>
+</div>
+<div>
+    @Html.ActionLink("Usuń", "DeleteWarehouseContinue", new { Model.Id }) |
+    @Html.ActionLink("Wróć", "Index", new {}) |
+
+    
+</div>

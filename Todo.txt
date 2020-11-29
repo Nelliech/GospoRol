@@ -1,1 +1,1 @@
-﻿
+﻿Zastanowić się jak dodawać produkty. Classa 'Product' przyda się przy wyświetlaniu, brak classy 'Product' ułatwi implementacje. Generyczne metody ??????

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -22,6 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\GospoRol.Application\GospoRol.Application.csproj" />
     <ProjectReference Include="..\GospoRol.Infrastructure\GospoRol.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\TreatmentControllers\" />
   </ItemGroup>
 
 </Project>

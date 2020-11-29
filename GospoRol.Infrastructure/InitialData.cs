@@ -1,4 +1,5 @@
 ﻿using GospoRol.Domain.Models;
+using GospoRol.Domain.Models.Places;
 using GospoRol.Domain.Models.Products;
 using GospoRol.Domain.Models.Treatments;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,9 @@ namespace GospoRol.Infrastructure
             builder.Entity<TypeProduct>().HasData(
                 new TypeProduct() { Id = 1, Name = "Nawozy" },
                 new TypeProduct() { Id = 2, Name = "Nasiona" },
-                new TypeProduct() { Id = 3, Name = "Pestycydy" }
+                new TypeProduct() { Id = 3, Name = "Pestycydy" },
+                new TypeProduct() { Id = 4, Name = "Plony Rolne" }
+
             );
             builder.Entity<TypeFertilizer>().HasData(
                 new TypeFertilizer() { Id = 1, Name = "Nawóz Zielony" },

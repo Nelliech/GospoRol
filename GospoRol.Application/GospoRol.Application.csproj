@@ -16,4 +16,9 @@
     <ProjectReference Include="..\GospoRol.Domain\GospoRol.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\TreatmentInterfaces\" />
+    <Folder Include="Services\TreatmentServices\" />
+  </ItemGroup>
+
 </Project>

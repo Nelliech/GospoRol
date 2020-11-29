@@ -1,4 +1,4 @@
-﻿@model GospoRol.Application.ViewModels.ListFieldForListVm
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels.ListFieldForListVm
 
 @{
     ViewData["Title"] = "Index";
@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Fields[0].Variety)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fields[0].AgriculturalClass.Class)
+                @Html.DisplayNameFor(model => model.Fields[0].AgriculturalClass)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fields[0].Land.PlotNumber)
+                @Html.DisplayNameFor(model => model.Fields[0].Land)
             </th>
             <th></th>
         </tr>
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Land.PlotNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditField", new {item.Id}) |
+                @Html.ActionLink("Edytuj", "EditField", new {item.Id}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "DeleteField", new {item.Id})
+                @Html.ActionLink("Usuń", "DeleteField", new {item.Id})
             </td>
         </tr>
 }

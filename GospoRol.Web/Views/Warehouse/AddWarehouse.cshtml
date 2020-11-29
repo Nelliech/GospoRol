@@ -1,11 +1,11 @@
-﻿@model GospoRol.Application.ViewModels.WarehouseViews.NewWarehouseVm
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.WarehouseViewModels.NewWarehouseVm
 @{
     ViewData["Title"] = "Dodaj Magazyn";
 }
 
 <h1>Dodaj Magazyn</h1>
 
-<h4>NewWarehouseVm</h4>
+<h4>Dodaj Nowy Magazyn</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,13 +25,13 @@
                 <span asp-validation-for="Acreage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Dodaj Magazyn" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Wróć</a>
 </div>
 

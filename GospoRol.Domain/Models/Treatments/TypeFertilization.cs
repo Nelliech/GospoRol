@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using GospoRol.Domain.Models.BaseClasses;
 
 namespace GospoRol.Domain.Models.Treatments
 {

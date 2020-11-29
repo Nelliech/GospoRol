@@ -1,4 +1,5 @@
 ﻿using System;
+using GospoRol.Domain.Models.BaseClasses;
 
 namespace GospoRol.Domain.Models.Treatments
 {

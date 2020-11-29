@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using GospoRol.Domain.Models;
+using GospoRol.Domain.Models.Places;
 using GospoRol.Domain.Models.Products;
 using GospoRol.Domain.Models.Treatments;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace GospoRol.Infrastructure
         public DbSet<Sowing> Sowings { get; set; }
         public DbSet<Spraying> Sprayings { get; set; }
         public DbSet<TypeSowing> TypeSowings { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Yield> Yields { get; set; }
         public DbSet<Fertilizer> Fertilizers { get; set; }
         public DbSet<TypeFertilizer> TypeFertilizers { get; set; }
         public DbSet<Pesticide> Pesticides { get; set; }
@@ -38,8 +39,12 @@ namespace GospoRol.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-          
             builder.SendInitialData();
+
+            builder.Entity<Harvest>()
+                .HasOne(a => a.Yield)
+                .WithOne(a => a.Harvest)
+                .HasForeignKey<Yield>(e => e.HarvestRef);
 
         }
        

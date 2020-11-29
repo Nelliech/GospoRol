@@ -1,0 +1,83 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels.ListFertilizerForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="AddFertilizer">Create New</a>
+</p>
+<table class="table">v
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].TypeFertilizer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].Warehouse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].Producer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].FertilizerComposition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].Concentration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].CurrentAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizers[0].AdditionalInformation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Fertilizers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeFertilizer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouse.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FertilizerComposition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concentration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) zł
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalInformation)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

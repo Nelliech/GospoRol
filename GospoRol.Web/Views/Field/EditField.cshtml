@@ -1,0 +1,60 @@
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels.NewFieldVm
+
+@{
+    ViewData["Title"] = "EditField";
+}
+
+<h1>EditField</h1>
+
+<h4>NewFieldVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditField">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FieldName" class="control-label"></label>
+                <input asp-for="FieldName" class="form-control" />
+                <span asp-validation-for="FieldName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Acreage" class="control-label"></label>
+                <input asp-for="Acreage" class="form-control" />
+                <span asp-validation-for="Acreage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CultivatedPlant" class="control-label"></label>
+                <input asp-for="CultivatedPlant" class="form-control" />
+                <span asp-validation-for="CultivatedPlant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Variety" class="control-label"></label>
+                <input asp-for="Variety" class="form-control" />
+                <span asp-validation-for="Variety" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistanceToWarehouse" class="control-label"></label>
+                <input asp-for="DistanceToWarehouse" class="form-control" />
+                <span asp-validation-for="DistanceToWarehouse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgriculturalClassId" class="control-label"></label>
+                <select asp-for="AgriculturalClassId" asp-items="@Model.AgriculturalClasses"></select>
+            </div>
+            <div class="form-group">
+                <input type="hidden"asp-for="LandId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,59 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels.ListSeedFotListVm
+
+@{
+    ViewData["Title"] = "Nasiona";
+}
+
+<h1>Nasiona</h1>
+
+<p>
+    <a asp-action="AddSeed">Dodaj nowe nasiona</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Seeds[0].NamePlant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seeds[0].PlantVariety)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seeds[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seeds[0].CurrentAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seeds[0].Warehouse)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Seeds) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePlant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantVariety)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)kg
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAmount)kg
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouse.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditSeed", new {item.Id}) 
+                @Html.ActionLink("Details", "DetailsSeed", new { item.Id })
+                @Html.ActionLink("Delete", "DeleteSeed", new { item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

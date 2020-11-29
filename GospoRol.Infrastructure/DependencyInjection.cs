@@ -1,5 +1,10 @@
 ﻿using GospoRol.Domain.Interfaces;
-using GospoRol.Infrastructure.Repositores;
+using GospoRol.Domain.Interfaces.PlaceInterfaces;
+using GospoRol.Domain.Interfaces.ProductInterfaces;
+using GospoRol.Domain.Interfaces.TreatmentInterfaces;
+using GospoRol.Infrastructure.Repositories;
+using GospoRol.Infrastructure.Repositories.PlaceRepositories;
+using GospoRol.Infrastructure.Repositories.ProductRepositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GospoRol.Infrastructure
@@ -12,6 +17,18 @@ namespace GospoRol.Infrastructure
             services.AddTransient<IFieldRepository, FieldRepository>();
             services.AddTransient<IAgriculturalClassRepository, AgriculturalClassRepository>();
             services.AddTransient<IWarehouseRepository, WarehouseRepository>();
+            // Products
+            services.AddTransient<ITypeFertilizerRepository, TypeFertilizerRepository>();
+            services.AddTransient<IFertilizerRepository, FertilizerRepository>();
+            services.AddTransient<ISeedRepository, SeedRepository>();
+            services.AddTransient<IPesticideRepository, PesticideRepository>();
+            services.AddTransient<IYieldRepository, YieldRepository>();
+
+
+
+
+
+
 
             return services;
         }

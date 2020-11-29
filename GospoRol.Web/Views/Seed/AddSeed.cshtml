@@ -1,0 +1,65 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels.NewSeedVm
+
+@{
+    ViewData["Title"] = "Dodanie Nasion";
+}
+
+<h1>Dodawanie Nasion</h1>
+
+<h4>Dodaj Nasiona</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddSeed">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NamePlant" class="control-label"></label>
+                <input asp-for="NamePlant" class="form-control" />
+                <span asp-validation-for="NamePlant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlantVariety" class="control-label"></label>
+                <input asp-for="PlantVariety" class="form-control" />
+                <span asp-validation-for="PlantVariety" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label"></label>
+                <input asp-for="Producer" class="form-control" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="CurrentAmount" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <textarea asp-for="Price" class="form-control"></textarea>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInformation" class="control-label"></label>
+                <textarea asp-for="AdditionalInformation" class="form-control"></textarea>
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WarehouseId" class="control-label"></label>
+                <select asp-for="WarehouseId" asp-items="@Model.Warehouses"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróć</a>
+</div>
+

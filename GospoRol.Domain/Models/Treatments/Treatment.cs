@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GospoRol.Domain.Models.BaseClasses;
+using GospoRol.Domain.Models.Places;
 
 namespace GospoRol.Domain.Models.Treatments
 {
