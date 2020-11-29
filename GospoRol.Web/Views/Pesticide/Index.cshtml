@@ -1,0 +1,71 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.PesticideViewModels.ListPesticideForListVm
+
+@{
+    ViewData["Title"] = "Twoje Pestycydy";
+}
+
+<h1>Pestycydy</h1>
+
+<p>
+    <a asp-action="AddPesticide">Dodaj Nowy Pestycyd</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].TypePesticide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].Warehouse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].Producer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].PesticideComposition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].Concentration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pesticides[0].CurrentAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Pesticides) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypePesticide.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouse.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PesticideComposition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concentration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "EditPesticide", new { item.Id}) |
+                @Html.ActionLink("Szczegóły", "DetailsPesticide", new { item.Id }) |
+                @Html.ActionLink("Usuń", "DeletePesticide", new { item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

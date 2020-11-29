@@ -4,6 +4,8 @@ using GospoRol.Domain.Interfaces;
 using GospoRol.Domain.Interfaces.PlaceInterfaces;
 using GospoRol.Domain.Models;
 using GospoRol.Domain.Models.Places;
+using GospoRol.Domain.Models.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace GospoRol.Infrastructure.Repositories.PlaceRepositories
 {
@@ -39,7 +41,11 @@ namespace GospoRol.Infrastructure.Repositories.PlaceRepositories
 
         public Warehouse GetWarehouseById(int warehouseId)
         {
-            return _context.Warehouses.FirstOrDefault(p => p.Id == warehouseId);
+            var q = _context.Warehouses.Include(se => se.Seeds).Include(fe => fe.Fertilizers)
+                .Include(yi => yi.Yields)
+                .Include(pe => pe.Pesticides).FirstOrDefault(p => p.Id == warehouseId);
+
+            return q;
         }
 
         public IQueryable<Warehouse> GetAllWarehouses(string userId)
@@ -50,8 +56,6 @@ namespace GospoRol.Infrastructure.Repositories.PlaceRepositories
         public IQueryable<Warehouse> GetAllWarehouses(int warehouseId)
         {
             return _context.Warehouses.Where(p => p.Id==warehouseId);
-
-
         }
 
         public int HowManyProducts(int warehouseId)

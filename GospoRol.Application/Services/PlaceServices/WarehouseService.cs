@@ -44,10 +44,10 @@ namespace GospoRol.Application.Services.PlaceServices
             return warehouseList;
         }
 
-        public NewWarehouseVm GetWarehouseById(int warehouseId)
+        public WarehouseVm GetWarehouseById(int warehouseId)
         {
             var warehouse = _warehouseRepository.GetWarehouseById(warehouseId);
-            var warehouseVm = _mapper.Map<NewWarehouseVm>(warehouse);
+            var warehouseVm = _mapper.Map<WarehouseVm>(warehouse);
             return warehouseVm;
         }
 

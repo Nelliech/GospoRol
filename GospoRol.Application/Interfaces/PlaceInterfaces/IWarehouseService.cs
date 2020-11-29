@@ -7,7 +7,7 @@ namespace GospoRol.Application.Interfaces.PlaceInterfaces
     {
         int AddWarehouse(NewWarehouseVm newWarehouse, string userId);
         ListWarehouseForListVm GetAllWarehouseForList(string userId);
-        NewWarehouseVm GetWarehouseById(int warehouseId);
+        WarehouseVm GetWarehouseById(int warehouseId);
         void UpdateWarehouse(NewWarehouseVm model);
         void DeleteWarehouse(int warehouseId);
         WarehouseForListVm GetWarehouseAndCountProductsById(int warehouseId);

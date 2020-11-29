@@ -6,7 +6,7 @@ using GospoRol.Domain.Models.Treatments;
 
 namespace GospoRol.Domain.Models.Products
 {
-    public class Pesticide : BaseClass
+    public class Pesticide : BaseEntity
     {
         public string Producer { get; set; }
         public string Name { get; set; }

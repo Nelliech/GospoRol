@@ -7,10 +7,11 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.PesticideViewModel
 {
     public class PesticideForListVm
     {
+        public int Id { get; set; }
         [DisplayName("Producent")]
         public string Producer { get; set; }
-        [DisplayName("Skład Nawozu")]
-        public string FertilizerComposition { get; set; }
+        [DisplayName("Skład Pestycyda")]
+        public string PesticideComposition { get; set; }
         [DisplayName("Steżenie")]
         public string Concentration { get; set; }
         [DisplayName("Pojemność opakowania")]
