@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel;
 using AutoMapper;
+using GospoRol.Application.Mapping;
 using GospoRol.Domain.Models.Places;
 using GospoRol.Domain.Models.Products;
 
 namespace GospoRol.Application.ViewModels.ProductsViewsModels.PesticideViewModels
 {
-    public class PesticideForListVm
+    public class PesticideForListVm : IMapFrom<Pesticide>
     {
         public int Id { get; set; }
         [DisplayName("Producent")]
         public string Producer { get; set; }
+        [DisplayName("Nazwa")]
+        public string Name { get; set; }
         [DisplayName("Skład Pestycyda")]
         public string PesticideComposition { get; set; }
-        [DisplayName("Steżenie")]
-        public string Concentration { get; set; }
         [DisplayName("Pojemność opakowania")]
         public decimal Capacity { get; set; }
         [DisplayName("Obecna Ilość")]

@@ -1,0 +1,91 @@
+﻿@using GospoRol.Domain.Models.Treatments
+@model GospoRol.Application.ViewModels.TreatmentViewModels.SowingViewModels.NewSowingVm
+
+@{
+    ViewData["Title"] = "Dodaj Ziebieg Siew";
+}
+
+<h1>Dodaj Nowy Zabieg: Siew</h1>
+
+<h4>Siew</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddSowing">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden="" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input hidden asp-for="UserId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeSowingId" class="control-label"></label><br>
+                <select asp-for="TypeSowingId" asp-items="@Model.TypeSowing"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FieldId" class="control-label"></label><br>
+                <select asp-for="FieldId" asp-items="@Model.Field"></select>
+            </div>
+            <div class="form-group" >
+                <label asp-for="DateTreatment" class="control-label"></label><br />
+                <input asp-for="DateTreatment" asp-format="{0:yyyy-MM-dd}" max="@DateTime.Now" class="form-group" id="datepicker"/>
+                <span asp-validation-for="DateTreatment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CultivatedPlant" class="control-label"></label>
+                <input asp-for="CultivatedPlant" class="form-control" />
+                <span asp-validation-for="CultivatedPlant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlantVariety" class="control-label"></label>
+                <input asp-for="PlantVariety" class="form-control" />
+                <span asp-validation-for="PlantVariety" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInformation" class="control-label"></label>
+                <textarea asp-for="AdditionalInformation" class="form-control"></textarea>
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WidthBetweenRows" class="control-label"></label>
+                <input asp-for="WidthBetweenRows" class="form-control" />
+                <span asp-validation-for="WidthBetweenRows" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberRows" class="control-label"></label>
+                <input asp-for="NumberRows" class="form-control" />
+                <span asp-validation-for="NumberRows" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HowManyHa" class="control-label"></label>
+                <input asp-for="HowManyHa" class="form-control" />
+                <span asp-validation-for="HowManyHa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SowingUnit" class="control-label"></label>
+                <select asp-for="SowingUnit" class="form-control" asp-items="@Html.GetEnumSelectList<SowingUnit>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepthSowing" class="control-label"></label>
+                <input asp-for="DepthSowing" class="form-control" />
+                <span asp-validation-for="DepthSowing" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Wróć</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

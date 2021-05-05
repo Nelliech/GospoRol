@@ -18,8 +18,6 @@ namespace GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels
         public string Variety { get; set; }
         [DisplayName("Klasa gruntu rolnego")]
         public AgriculturalClass AgriculturalClass { get; set; }
-        [DisplayName("Odległość do magazynu")]
-        public decimal DistanceToWarehouse { get; set; }
         [DisplayName("Numer działki")]
         public Land Land { get; set; }
 

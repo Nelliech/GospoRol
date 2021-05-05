@@ -18,8 +18,4 @@
     <ProjectReference Include="..\GospoRol.Domain\GospoRol.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\TreatmentRepositories\" />
-  </ItemGroup>
-
 </Project>

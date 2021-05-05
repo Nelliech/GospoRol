@@ -15,7 +15,7 @@ namespace GospoRol.Infrastructure
         public DbSet<Land> Lands { get; set; }
         public DbSet<Field> Fields { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Treatment> Treatments { get; set; }
+       
         public DbSet<Cultivation> Cultivatings { get; set; }
         public DbSet<TypeCultivation> TypeCultivations { get; set; }
         public DbSet<Fertilization> Fertilizations { get; set; }

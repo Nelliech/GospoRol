@@ -1,0 +1,65 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.YieldViewModels.NewYieldVm
+
+@{
+    ViewData["Title"] = "EditYield";
+}
+
+<h1>EditYield</h1>
+
+<h4>NewYieldVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditYield">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NamePlant" class="control-label"></label>
+                <input asp-for="NamePlant" class="form-control" />
+                <span asp-validation-for="NamePlant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlantVariety" class="control-label"></label>
+                <input asp-for="PlantVariety" class="form-control" />
+                <span asp-validation-for="PlantVariety" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInformation" class="control-label"></label>
+                <input asp-for="AdditionalInformation" class="form-control" />
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YieldUnit" class="control-label"></label>
+                <input asp-for="YieldUnit" class="form-control" />
+                <span asp-validation-for="YieldUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WarehouseId" class="control-label"></label>
+                <input asp-for="WarehouseId" class="form-control" />
+                <span asp-validation-for="WarehouseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using GospoRol.Application.Interfaces.PlaceInterfaces;
 using GospoRol.Application.Interfaces.ProductInterfaces;
 using GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GospoRol.Web.Controllers.ProductControllers
 {
@@ -21,6 +15,7 @@ namespace GospoRol.Web.Controllers.ProductControllers
         private readonly ITypeFertilizerService _typeFertilizerService;
         private readonly IWarehouseService _warehouseService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private string userId;
         public FertilizerController(IFertilizerService fertilizerService,ITypeFertilizerService typeFertilizerService,
             IWarehouseService warehouseService, IHttpContextAccessor httpContextAccessor)
         {
@@ -28,24 +23,18 @@ namespace GospoRol.Web.Controllers.ProductControllers
             _typeFertilizerService = typeFertilizerService;
             _warehouseService = warehouseService;
             _httpContextAccessor = httpContextAccessor;
+            userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         public IActionResult Index()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             var model = _fertilizerService.GetAllFertilizerForList(userId);
             return View(model);
         }
         public IActionResult AddFertilizer()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var modelWarehouse = _warehouseService.GetAllWarehouseForList(userId).Warehouses;
-            var warehouseSelectList =
-                modelWarehouse.Select(f => new SelectListItem(f.Name, Convert.ToString(f.Id))).ToList();
-
-            var modelTypeFertilizer = _typeFertilizerService.GetAllTypeFertilizerForList().TypeFertilizer;
-            var typeFertilizerSelectList = modelTypeFertilizer
-                .Select(f => new SelectListItem(f.Name, Convert.ToString(f.Id))).ToList().ToList();
+            var warehouseSelectList = _warehouseService.GetAllWarehouseForSelectList(userId);
+            var typeFertilizerSelectList = _typeFertilizerService.GetAllTypeFertilizerFoSelectList();
 
             var model = new NewFertilizerVm()
             {
@@ -60,14 +49,61 @@ namespace GospoRol.Web.Controllers.ProductControllers
         [ValidateAntiForgeryToken]
         public IActionResult AddFertilizer(NewFertilizerVm model)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             if (ModelState.IsValid)
             {
-                var id = _fertilizerService.AddFertilizer(model, userId);
+                _fertilizerService.AddFertilizer(model, userId);
                 return RedirectToAction("Index");
             }
             return View();
         }
+        public IActionResult EditFertilizer(int id)
+        {
+            var fertilizer = _fertilizerService.GetFertilizerById(id);
+            if (fertilizer.UserId != userId)
+            {
+                return RedirectToAction("Index");
 
+            }
+
+            var warehouseSelectList = _warehouseService.GetAllWarehouseForSelectList(userId);
+            var typeFertilizerSelectList = _typeFertilizerService.GetAllTypeFertilizerFoSelectList();
+
+            fertilizer.Warehouses = warehouseSelectList;
+            fertilizer.TypeFertilizers = typeFertilizerSelectList;
+
+            return View(fertilizer);
+        }
+        [HttpPost]
+        public IActionResult EditSeed(NewFertilizerVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                _fertilizerService.UpdateFertilizer(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+        public IActionResult DeleteFertilizer(int id)
+        {
+            var fertilizerUserId = _fertilizerService.GetFertilizerById(id).UserId;
+            if (fertilizerUserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
+            _fertilizerService.DeleteFertilizer(id);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DetailsFertilizer(int id)
+        {
+            var fertilizer = _fertilizerService.GetFertilizerById(id);
+            if (fertilizer.UserId != userId)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(fertilizer);
+        }
     }
 }

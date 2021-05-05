@@ -10,6 +10,7 @@ namespace GospoRol.Application.ViewModels.PlaceViewModels.WarehouseViewModels
     public class WarehouseForListVm : IMapFrom<Warehouse>
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         [DisplayName("Nazwa Magazynu")]
         public string Name { get; set; }
         [DisplayName("Areał")]

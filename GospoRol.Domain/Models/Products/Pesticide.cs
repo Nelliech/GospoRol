@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GospoRol.Domain.Models.BaseClasses;
 using GospoRol.Domain.Models.Places;
@@ -11,8 +12,14 @@ namespace GospoRol.Domain.Models.Products
         public string Producer { get; set; }
         public string Name { get; set; }
         public string PesticideComposition { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Capacity { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal CurrentAmount { get; set; }
+        public PesticideUnit PesticideUnit { get; set; }
+
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }
         // nazwa, głowny skladnik, pojemnosc, cena, 
@@ -23,5 +30,15 @@ namespace GospoRol.Domain.Models.Products
         public int TypePesticideId { get; set; }   //Fungicyd,Chwastobójczy,Insektycyd,Moluskocyd,Regulator wzrostu, Atraktant,Rodentycyd,bakteriocyd
         public TypePesticide TypePesticide { get; set; }  //Dezynfektant, Stymulator Odporności,Repelent??,Środek mikrobiologiczny,Nematocyd
         public virtual ICollection<Spraying> Sprayings { get; set; }
+    }
+
+    public enum PesticideUnit
+    {
+        [Display(Name = "Kg")]
+        kg,
+        [Display(Name = "L")]
+        l,
+        [Display(Name = "mL")]
+        ml
     }
 }

@@ -40,10 +40,14 @@
                 @Html.DisplayFor(modelItem => item.PlantVariety)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Capacity)kg
+                @Html.DisplayFor(modelItem => item.Capacity)
+                @Html.DisplayFor(modelItem => item.SeedUnit)
+
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CurrentAmount)kg
+                @Html.DisplayFor(modelItem => item.CurrentAmount)
+                @Html.DisplayFor(modelItem => item.SeedUnit)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Warehouse.Name)

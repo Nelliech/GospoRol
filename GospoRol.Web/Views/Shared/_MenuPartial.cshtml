@@ -4,20 +4,22 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <ul class="navbar-nav flex-grow-1">
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Land" asp-action="Index">Grunty Rolne</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Field" asp-action="Index">Pola</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Index">Magazyny</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produkty</a>
-            </li>
-        </ul>
-    </nav>
+
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Land" asp-action="Index">Grunty Rolne</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Field" asp-action="Index">Pola</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Index">Magazyny</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Zabiegi</a>
+    </li>
+
 }

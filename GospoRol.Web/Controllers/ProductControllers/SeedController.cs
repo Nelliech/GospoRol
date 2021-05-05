@@ -18,22 +18,24 @@ namespace GospoRol.Web.Controllers.ProductControllers
         private readonly ISeedService _seedService;
         private readonly IWarehouseService _warehouseService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private string userId;
         public SeedController(ISeedService seedService,IWarehouseService warehouseService, IHttpContextAccessor httpContextAccessor)
         {
             _seedService = seedService;
             _warehouseService = warehouseService;
             _httpContextAccessor = httpContextAccessor;
+            userId= _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         public IActionResult Index()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             var model = _seedService.GetAllSeedForList(userId);
             return View(model);
         }
 
         public IActionResult AddSeed()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
 
             var modelWarehouses = _warehouseService.GetAllWarehouseForList(userId).Warehouses;
             var warehouseSelectList =
@@ -50,21 +52,64 @@ namespace GospoRol.Web.Controllers.ProductControllers
 
         public IActionResult AddSeed(NewSeedVm model)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
 
             if (ModelState.IsValid)
             {
-                var id = _seedService.AddSeed(model, userId);
+                _seedService.AddSeed(model, userId);
                 return RedirectToAction("Index");
             }
 
             return View(model);
         }
 
+        public IActionResult EditSeed(int id)
+        {
+            var seed = _seedService.GetSeedById(id);
+            if (seed.UserId != userId)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var modelWarehouses = _warehouseService.GetAllWarehouseForList(userId).Warehouses;
+            var warehouseSelectList =
+                modelWarehouses.Select(f => new SelectListItem(f.Name, Convert.ToString(f.Id))).ToList();
+
+            seed.Warehouses = warehouseSelectList;
+
+            return View(seed);
+        }
+        [HttpPost]
+        public IActionResult EditSeed(NewSeedVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                _seedService.UpdateSeed(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
         public IActionResult DetailsSeed(int id)
         {
             var seed = _seedService.GetSeedById(id);
+            if (seed.UserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
             return View(seed);
+        }
+        public IActionResult DeleteSeed(int id)
+        {
+            var seedUserId = _seedService.GetSeedById(id).UserId;
+            if (seedUserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
+            _seedService.DeleteSeed(id);
+            return RedirectToAction("Index");
         }
     }
 }

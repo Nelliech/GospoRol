@@ -7,8 +7,8 @@ namespace GospoRol.Domain.Interfaces.PlaceInterfaces
 {
     public interface ILandRepository
     {
-        int AddLand(Land land);
-        void DeleteLand(int landId);
+        //int AddLand(Land land);
+        //void DeleteLand(int landId);
         void UpdateLand(Land land);
         void ChangeAcreageOccupied(decimal acreageFields, int landId);
         Land GetLandById(int landId);

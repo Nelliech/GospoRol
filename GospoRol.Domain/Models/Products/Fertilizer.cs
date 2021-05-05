@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GospoRol.Domain.Models.BaseClasses;
 using GospoRol.Domain.Models.Places;
@@ -10,9 +11,16 @@ namespace GospoRol.Domain.Models.Products
     {
         public string Producer { get; set; }                //Producent
         public string FertilizerComposition { get; set; }   //Sklad nawozu (ilość) np MPk ważne ile procentówa
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Concentration { get; set; } // stężenie + objętność, ilość procentowo stężenie ?
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Capacity { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal CurrentAmount { get; set; }
+        public FertilizerUnit FertilizerUnit { get; set; }
 
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }         // cena
@@ -26,5 +34,15 @@ namespace GospoRol.Domain.Models.Products
         public virtual ICollection<Fertilization> Fertilizations { get; set; }
 
     }
-    
+    public enum FertilizerUnit
+    {
+        [Display(Name = "Kg")]
+        kg,
+        [Display(Name = "mg")]
+        mg,
+        [Display(Name = "L")]
+        l
+
+    }
+
 }

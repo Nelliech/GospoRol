@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using GospoRol.Domain.Models.BaseClasses;
 using GospoRol.Domain.Models.Places;
 using GospoRol.Domain.Models.Treatments;
@@ -10,10 +11,14 @@ namespace GospoRol.Domain.Models.Products
     {
         public string NamePlant { get; set; }
         public string PlantVariety { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Count { get; set; }
-        public Unit Unit { get; set; }
-        public int HarvestRef { get; set; }
-        public Harvest Harvest { get; set; }
+        public YieldUnit YieldUnit { get; set; }
+#nullable enable
+        public int? HarvestRef { get; set; }
+        public Harvest? Harvest { get; set; }
+#nullable disable
         public int TypeProductId { get; set; }
         public virtual TypeProduct TypeProduct { get; set; }
         public int WarehouseId { get; set; }
@@ -21,14 +26,14 @@ namespace GospoRol.Domain.Models.Products
 
     }
 
-    public enum Unit
+    public enum YieldUnit
     {
-        [Display(Name = "kg/ha")]
-        kgha,
-        [Display(Name = "t/ha")]
-        tha,
-        [Display(Name = "szt/ha")]
-        sztha
+        [Display(Name = "Kg")]
+        kg,
+        [Display(Name = "T")]
+        t,
+        [Display(Name = "szt")]
+        szt
 
     }
 }

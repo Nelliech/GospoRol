@@ -9,6 +9,7 @@ namespace GospoRol.Domain.Interfaces.TreatmentInterfaces
         void DeleteFertilization(int fertilizationId);
         void UpdateFertilization(Fertilization fertilization);
         Fertilization GetFertilizationById(int fertilizationId);
-        IQueryable<Fertilization> GetAllFertilizations();
+        IQueryable<Fertilization> GetAllFertilizationsByUserId(string userId);
+        IQueryable<Fertilization> GetAllFertilizationsByFieldId(int fieldId);
     }
 }

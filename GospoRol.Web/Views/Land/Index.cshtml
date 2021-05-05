@@ -2,14 +2,14 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Twoje Grunty Rolne";
 
 }
 
 <h1>Twoje Grunty Rolne</h1>
 
 <p>
-    <a asp-action="AddLand">Dodaj nowy grunt rolny.</a>
+    <a asp-action="AddLand">Dodaj nowy grunt rolny!</a>
 </p>
 <form asp-action="Index" asp-controller="Land">
     <table class="table">
@@ -64,7 +64,7 @@
                 <td>
                     @Html.ActionLink("Edytuj", "EditLand", new { item.Id }) |
                     @Html.ActionLink("Usuń", "DeleteLand", new { item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { item.Id }) |
+                    @Html.ActionLink("Szczegóły", "DetailsLand", new { item.Id }) |
                 </td>
             </tr>
             }

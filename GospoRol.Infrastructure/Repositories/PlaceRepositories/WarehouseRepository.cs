@@ -41,7 +41,7 @@ namespace GospoRol.Infrastructure.Repositories.PlaceRepositories
 
         public Warehouse GetWarehouseById(int warehouseId)
         {
-            var q = _context.Warehouses.Include(se => se.Seeds).Include(fe => fe.Fertilizers)
+            var q = _context.Warehouses.Include(se => se.Seeds).Include(fe => fe.Fertilizers).ThenInclude(ty=>ty.TypeFertilizer)
                 .Include(yi => yi.Yields)
                 .Include(pe => pe.Pesticides).FirstOrDefault(p => p.Id == warehouseId);
 

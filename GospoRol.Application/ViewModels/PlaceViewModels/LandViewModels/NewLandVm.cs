@@ -9,6 +9,7 @@ namespace GospoRol.Application.ViewModels.PlaceViewModels.LandViewModels
     public class NewLandVm : IMapFrom<Land>
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         [DisplayName("Numer Działki")]
         public string PlotNumber { get; set; }          //Numer Działki
         [DisplayName("Areał")]
@@ -17,7 +18,6 @@ namespace GospoRol.Application.ViewModels.PlaceViewModels.LandViewModels
         public decimal AcreageFree { get; set; }             //Wolny areał
         [DisplayName("Zajęty Areał")]
         public decimal AcreageOccupied { get; set; }         //zajęty Areał
-        public string UserId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewLandVm, Land>().ReverseMap();

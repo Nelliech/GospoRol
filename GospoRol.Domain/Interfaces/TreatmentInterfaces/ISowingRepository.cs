@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GospoRol.Domain.Models.Treatments;
 
 namespace GospoRol.Domain.Interfaces.TreatmentInterfaces
@@ -9,6 +10,7 @@ namespace GospoRol.Domain.Interfaces.TreatmentInterfaces
         void DeleteSowing(int sowingId);
         void UpdateSowing(Sowing sowing);
         Sowing GetSowingById(int sowingId);
-        IQueryable<Sowing> GetAllSowings();
+        IQueryable<Sowing> GetAllSowingsByUserId(string userId);
+        Sowing GetNewestSowingDateTimeInField(int fieldId);
     }
 }

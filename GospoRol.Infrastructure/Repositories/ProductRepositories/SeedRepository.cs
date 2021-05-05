@@ -32,10 +32,15 @@ namespace GospoRol.Infrastructure.Repositories.ProductRepositories
         public void UpdateSeed(Seed seed)
         {
             _context.Attach(seed);
-            _context.Entry(seed).Property("NamePlant").IsModified = true;
+            _context.Entry(seed).Property("NamePlant").IsModified = true; 
             _context.Entry(seed).Property("PlantVariety").IsModified = true;
             _context.Entry(seed).Property("Producer").IsModified = true;
-            _context.Entry(seed).Property("SeedingRate").IsModified = true;
+            _context.Entry(seed).Property("Capacity").IsModified = true;
+            _context.Entry(seed).Property("CurrentAmount").IsModified = true;
+            _context.Entry(seed).Property("Price").IsModified = true;
+            _context.Entry(seed).Property("AdditionalInformation").IsModified = true;
+            _context.Entry(seed).Property("WarehouseId").IsModified = true;
+
 
             _context.SaveChanges();
         }

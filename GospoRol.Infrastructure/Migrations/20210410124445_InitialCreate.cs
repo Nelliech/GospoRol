@@ -265,9 +265,9 @@ namespace GospoRol.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
                     PlotNumber = table.Column<string>(nullable: true),
-                    Acreage = table.Column<decimal>(nullable: false),
-                    AcreageFree = table.Column<decimal>(nullable: false),
-                    AcreageOccupied = table.Column<decimal>(nullable: false)
+                    Acreage = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AcreageFree = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AcreageOccupied = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -288,7 +288,7 @@ namespace GospoRol.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Acreage = table.Column<decimal>(nullable: false)
+                    Acreage = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -309,10 +309,9 @@ namespace GospoRol.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
                     FieldName = table.Column<string>(nullable: true),
-                    Acreage = table.Column<decimal>(nullable: false),
+                    Acreage = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     Variety = table.Column<string>(nullable: true),
-                    DistanceToWarehouse = table.Column<decimal>(nullable: false),
                     AgriculturalClassId = table.Column<int>(nullable: false),
                     LandId = table.Column<int>(nullable: false)
                 },
@@ -348,9 +347,10 @@ namespace GospoRol.Infrastructure.Migrations
                     UserId = table.Column<string>(nullable: true),
                     Producer = table.Column<string>(nullable: true),
                     FertilizerComposition = table.Column<string>(nullable: true),
-                    Concentration = table.Column<decimal>(nullable: false),
-                    Capacity = table.Column<decimal>(nullable: false),
-                    CurrentAmount = table.Column<decimal>(nullable: false),
+                    Concentration = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Capacity = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    FertilizerUnit = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(type: "Money", nullable: false),
                     AdditionalInformation = table.Column<string>(nullable: true),
                     TypeProductId = table.Column<int>(nullable: false),
@@ -392,11 +392,13 @@ namespace GospoRol.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
                     Producer = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PesticideComposition = table.Column<string>(nullable: true),
-                    Capacity = table.Column<decimal>(nullable: false),
-                    CurrentAmount = table.Column<decimal>(nullable: false),
+                    Capacity = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    PesticideUnit = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(type: "Money", nullable: false),
                     TypeProductId = table.Column<int>(nullable: false),
                     WarehouseId = table.Column<int>(nullable: false),
@@ -418,6 +420,12 @@ namespace GospoRol.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Pesticides_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Pesticides_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouses",
@@ -435,8 +443,9 @@ namespace GospoRol.Infrastructure.Migrations
                     NamePlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
                     Producer = table.Column<string>(nullable: true),
-                    Capacity = table.Column<decimal>(nullable: false),
-                    CurrentAmount = table.Column<decimal>(nullable: false),
+                    Capacity = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    SeedUnit = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(type: "Money", nullable: false),
                     AdditionalInformation = table.Column<string>(nullable: true),
                     TypeProductId = table.Column<int>(nullable: false),
@@ -466,32 +475,6 @@ namespace GospoRol.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Treatments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeTreatmentId = table.Column<int>(nullable: false),
-                    FieldId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Treatments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Treatments_Fields_FieldId",
-                        column: x => x.FieldId,
-                        principalTable: "Fields",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Treatments_TypeTreatment_TypeTreatmentId",
-                        column: x => x.TypeTreatmentId,
-                        principalTable: "TypeTreatment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cultivatings",
                 columns: table => new
                 {
@@ -501,17 +484,19 @@ namespace GospoRol.Infrastructure.Migrations
                     DateTreatment = table.Column<DateTime>(nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
-                    TypeCultivationId = table.Column<int>(nullable: false),
-                    TreatmentId = table.Column<int>(nullable: false)
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
+                    TypeCultivationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cultivatings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cultivatings_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
+                        name: "FK_Cultivatings_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -521,52 +506,13 @@ namespace GospoRol.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Cultivatings_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Cultivatings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fertilizations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
-                    DateTreatment = table.Column<DateTime>(nullable: false),
-                    CultivatedPlant = table.Column<string>(nullable: true),
-                    PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
-                    HowManyHa = table.Column<double>(nullable: false),
-                    FertilizerId = table.Column<int>(nullable: false),
-                    TypeFertilizationId = table.Column<int>(nullable: false),
-                    TreatmentId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fertilizations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Fertilizations_Fertilizers_FertilizerId",
-                        column: x => x.FertilizerId,
-                        principalTable: "Fertilizers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Fertilizations_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Fertilizations_TypeFertilizations_TypeFertilizationId",
-                        column: x => x.TypeFertilizationId,
-                        principalTable: "TypeFertilizations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Fertilizations_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -583,18 +529,26 @@ namespace GospoRol.Infrastructure.Migrations
                     DateTreatment = table.Column<DateTime>(nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
-                    Efficiency = table.Column<decimal>(nullable: false),
-                    IsPostHarvestResidue = table.Column<bool>(nullable: false),
-                    TreatmentId = table.Column<int>(nullable: false)
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
+                    Efficiency = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    IsPostHarvestResidue = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Harvests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Harvests_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
+                        name: "FK_Harvests_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Harvests_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -615,18 +569,26 @@ namespace GospoRol.Infrastructure.Migrations
                     DateTreatment = table.Column<DateTime>(nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
                     NumberInterRows = table.Column<int>(nullable: false),
-                    Reason = table.Column<string>(nullable: true),
-                    TreatmentId = table.Column<int>(nullable: false)
+                    Reason = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MechanicalWeedControls", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MechanicalWeedControls_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
+                        name: "FK_MechanicalWeedControls_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MechanicalWeedControls_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -638,7 +600,7 @@ namespace GospoRol.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sowings",
+                name: "Fertilizations",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -647,38 +609,44 @@ namespace GospoRol.Infrastructure.Migrations
                     DateTreatment = table.Column<DateTime>(nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
-                    WidthBetweenRows = table.Column<double>(nullable: false),
-                    NumberRows = table.Column<int>(nullable: false),
-                    HowManyHa = table.Column<decimal>(nullable: false),
-                    DepthSowing = table.Column<decimal>(nullable: false),
-                    SeedId = table.Column<int>(nullable: false),
-                    TypeSowingId = table.Column<int>(nullable: false),
-                    TreatmentId = table.Column<int>(nullable: false)
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
+                    HowManyHa = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    FertilizationUnit = table.Column<int>(nullable: false),
+                    FertilizerId = table.Column<int>(nullable: false),
+                    TypeFertilizationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sowings", x => x.Id);
+                    table.PrimaryKey("PK_Fertilizations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sowings_Seeds_SeedId",
-                        column: x => x.SeedId,
-                        principalTable: "Seeds",
+                        name: "FK_Fertilizations_Fertilizers_FertilizerId",
+                        column: x => x.FertilizerId,
+                        principalTable: "Fertilizers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sowings_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
+                        name: "FK_Fertilizations_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sowings_TypeSowings_TypeSowingId",
-                        column: x => x.TypeSowingId,
-                        principalTable: "TypeSowings",
+                        name: "FK_Fertilizations_TypeFertilizations_TypeFertilizationId",
+                        column: x => x.TypeFertilizationId,
+                        principalTable: "TypeFertilizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sowings_AspNetUsers_UserId",
+                        name: "FK_Fertilizations_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Fertilizations_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -695,17 +663,25 @@ namespace GospoRol.Infrastructure.Migrations
                     DateTreatment = table.Column<DateTime>(nullable: false),
                     CultivatedPlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
                     NameProduct = table.Column<string>(nullable: true),
-                    Dose = table.Column<decimal>(nullable: false),
-                    Unit = table.Column<string>(nullable: true),
+                    Dose = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    SprayingUnit = table.Column<int>(nullable: false),
                     Reason = table.Column<string>(nullable: true),
-                    TreatmentId = table.Column<int>(nullable: false),
                     PesticideId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sprayings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sprayings_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sprayings_Pesticides_PesticideId",
                         column: x => x.PesticideId,
@@ -713,13 +689,70 @@ namespace GospoRol.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sprayings_Treatments_TreatmentId",
-                        column: x => x.TreatmentId,
-                        principalTable: "Treatments",
+                        name: "FK_Sprayings_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sprayings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sowings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    DateTreatment = table.Column<DateTime>(nullable: false),
+                    CultivatedPlant = table.Column<string>(nullable: true),
+                    PlantVariety = table.Column<string>(nullable: true),
+                    Area = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AdditionalInformation = table.Column<string>(nullable: true),
+                    FieldId = table.Column<int>(nullable: false),
+                    TypeTreatmentId = table.Column<int>(nullable: false),
+                    WidthBetweenRows = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    NumberRows = table.Column<int>(nullable: false),
+                    HowManyHa = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    SowingUnit = table.Column<int>(nullable: false),
+                    DepthSowing = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    TypeSowingId = table.Column<int>(nullable: false),
+                    SeedId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sowings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sowings_Fields_FieldId",
+                        column: x => x.FieldId,
+                        principalTable: "Fields",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sowings_Seeds_SeedId",
+                        column: x => x.SeedId,
+                        principalTable: "Seeds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Sowings_TypeSowings_TypeSowingId",
+                        column: x => x.TypeSowingId,
+                        principalTable: "TypeSowings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sowings_TypeTreatment_TypeTreatmentId",
+                        column: x => x.TypeTreatmentId,
+                        principalTable: "TypeTreatment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sowings_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -735,9 +768,9 @@ namespace GospoRol.Infrastructure.Migrations
                     UserId = table.Column<string>(nullable: true),
                     NamePlant = table.Column<string>(nullable: true),
                     PlantVariety = table.Column<string>(nullable: true),
-                    Count = table.Column<decimal>(nullable: false),
-                    Unit = table.Column<int>(nullable: false),
-                    HarvestRef = table.Column<int>(nullable: false),
+                    Count = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    YieldUnit = table.Column<int>(nullable: false),
+                    HarvestRef = table.Column<int>(nullable: true),
                     TypeProductId = table.Column<int>(nullable: false),
                     WarehouseId = table.Column<int>(nullable: false)
                 },
@@ -749,7 +782,7 @@ namespace GospoRol.Infrastructure.Migrations
                         column: x => x.HarvestRef,
                         principalTable: "Harvests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Yields_TypeProduct_TypeProductId",
                         column: x => x.TypeProductId,
@@ -915,14 +948,19 @@ namespace GospoRol.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cultivatings_TreatmentId",
+                name: "IX_Cultivatings_FieldId",
                 table: "Cultivatings",
-                column: "TreatmentId");
+                column: "FieldId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cultivatings_TypeCultivationId",
                 table: "Cultivatings",
                 column: "TypeCultivationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cultivatings_TypeTreatmentId",
+                table: "Cultivatings",
+                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cultivatings_UserId",
@@ -935,14 +973,19 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "FertilizerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fertilizations_TreatmentId",
+                name: "IX_Fertilizations_FieldId",
                 table: "Fertilizations",
-                column: "TreatmentId");
+                column: "FieldId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fertilizations_TypeFertilizationId",
                 table: "Fertilizations",
                 column: "TypeFertilizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fertilizations_TypeTreatmentId",
+                table: "Fertilizations",
+                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fertilizations_UserId",
@@ -985,9 +1028,14 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Harvests_TreatmentId",
+                name: "IX_Harvests_FieldId",
                 table: "Harvests",
-                column: "TreatmentId");
+                column: "FieldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Harvests_TypeTreatmentId",
+                table: "Harvests",
+                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Harvests_UserId",
@@ -1000,9 +1048,14 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MechanicalWeedControls_TreatmentId",
+                name: "IX_MechanicalWeedControls_FieldId",
                 table: "MechanicalWeedControls",
-                column: "TreatmentId");
+                column: "FieldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MechanicalWeedControls_TypeTreatmentId",
+                table: "MechanicalWeedControls",
+                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MechanicalWeedControls_UserId",
@@ -1018,6 +1071,11 @@ namespace GospoRol.Infrastructure.Migrations
                 name: "IX_Pesticides_TypeProductId",
                 table: "Pesticides",
                 column: "TypeProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pesticides_UserId",
+                table: "Pesticides",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pesticides_WarehouseId",
@@ -1040,14 +1098,14 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sowings_FieldId",
+                table: "Sowings",
+                column: "FieldId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sowings_SeedId",
                 table: "Sowings",
                 column: "SeedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sowings_TreatmentId",
-                table: "Sowings",
-                column: "TreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sowings_TypeSowingId",
@@ -1055,9 +1113,19 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "TypeSowingId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sowings_TypeTreatmentId",
+                table: "Sowings",
+                column: "TypeTreatmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sowings_UserId",
                 table: "Sowings",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sprayings_FieldId",
+                table: "Sprayings",
+                column: "FieldId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sprayings_PesticideId",
@@ -1065,24 +1133,14 @@ namespace GospoRol.Infrastructure.Migrations
                 column: "PesticideId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sprayings_TreatmentId",
+                name: "IX_Sprayings_TypeTreatmentId",
                 table: "Sprayings",
-                column: "TreatmentId");
+                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sprayings_UserId",
                 table: "Sprayings",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Treatments_FieldId",
-                table: "Treatments",
-                column: "FieldId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Treatments_TypeTreatmentId",
-                table: "Treatments",
-                column: "TypeTreatmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Warehouses_UserId",
@@ -1093,7 +1151,8 @@ namespace GospoRol.Infrastructure.Migrations
                 name: "IX_Yields_HarvestRef",
                 table: "Yields",
                 column: "HarvestRef",
-                unique: true);
+                unique: true,
+                filter: "[HarvestRef] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Yields_TypeProductId",
@@ -1181,9 +1240,6 @@ namespace GospoRol.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Warehouses");
-
-            migrationBuilder.DropTable(
-                name: "Treatments");
 
             migrationBuilder.DropTable(
                 name: "Fields");

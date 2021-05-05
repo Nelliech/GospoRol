@@ -6,7 +6,6 @@ namespace GospoRol.Domain.Models.Treatments
     {
         public int TypeCultivationId { get; set; }
         public TypeCultivation TypeCultivation { get; set; }
-        public int TreatmentId { get; set; }
-        public Treatment Treatment { get; set; }
+      
     }
 }

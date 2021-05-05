@@ -8,6 +8,7 @@ using GospoRol.Application.Interfaces.ProductInterfaces;
 using GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels;
 using GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels.TypeFertilizerViewModels;
 using GospoRol.Domain.Interfaces.PlaceInterfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GospoRol.Application.Services.ProductServices
 {
@@ -29,6 +30,14 @@ namespace GospoRol.Application.Services.ProductServices
                 TypeFertilizer = typeFertilizerList
             };
             return typeFertilizerVm;
+        }
+
+        public List<SelectListItem> GetAllTypeFertilizerFoSelectList()
+        {
+            var modelTypeFertilizer = GetAllTypeFertilizerForList().TypeFertilizer;
+            var typeFertilizerSelectList = modelTypeFertilizer
+                .Select(f => new SelectListItem(f.Name, Convert.ToString(f.Id))).ToList().ToList();
+            return typeFertilizerSelectList;
         }
     }
 }

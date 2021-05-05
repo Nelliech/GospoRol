@@ -1,4 +1,5 @@
-﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels.NewSeedVm
+﻿@using GospoRol.Domain.Models.Products
+@model GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels.NewSeedVm
 
 @{
     ViewData["Title"] = "Dodanie Nasion";
@@ -14,6 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="WarehouseId" class="control-label"></label><br>
+                <select asp-for="WarehouseId" asp-items="@Model.Warehouses"></select>
             </div>
             <div class="form-group">
                 <label asp-for="NamePlant" class="control-label"></label>
@@ -36,11 +41,15 @@
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SeedUnit" class="control-label"></label>
+                <select asp-for="SeedUnit" class="form-control" asp-items="@Html.GetEnumSelectList<SeedUnit>()"></select>
+            </div>
+            <div class="form-group">
                 <input type="hidden" asp-for="CurrentAmount" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <textarea asp-for="Price" class="form-control"></textarea>
+                <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,10 +57,7 @@
                 <textarea asp-for="AdditionalInformation" class="form-control"></textarea>
                 <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="WarehouseId" class="control-label"></label>
-                <select asp-for="WarehouseId" asp-items="@Model.Warehouses"></select>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
             </div>

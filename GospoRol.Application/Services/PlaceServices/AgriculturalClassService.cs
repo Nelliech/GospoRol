@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GospoRol.Application.Interfaces;
@@ -6,6 +8,7 @@ using GospoRol.Application.Interfaces.PlaceInterfaces;
 using GospoRol.Application.ViewModels.PlaceViewModels.AgriculturalClassViewModels;
 using GospoRol.Domain.Interfaces;
 using GospoRol.Domain.Interfaces.PlaceInterfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GospoRol.Application.Services.PlaceServices
 {
@@ -27,6 +30,15 @@ namespace GospoRol.Application.Services.PlaceServices
                 Classes = agrClasses
             };
             return agrClassesList;
+        }
+
+        public List<SelectListItem> GetAllAgriculturalClassForSelectList()
+        {
+            var modelAgrClass = GetAllAgriculturalClassForList().Classes;
+            var agrClassSelectList =
+                modelAgrClass.Select(f => new SelectListItem(f.Class, Convert.ToString(f.Id))).ToList();
+
+            return agrClassSelectList;
         }
     }
 }

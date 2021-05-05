@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GospoRol.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201125143349_InitialCreate")]
+    [Migration("20210410124445_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -162,16 +162,13 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Acreage")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("AgriculturalClassId")
                         .HasColumnType("int");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("DistanceToWarehouse")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("FieldName")
                         .HasColumnType("nvarchar(max)");
@@ -204,13 +201,13 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Acreage")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("AcreageFree")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("AcreageOccupied")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("PlotNumber")
                         .HasColumnType("nvarchar(max)");
@@ -233,7 +230,7 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Acreage")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -259,16 +256,19 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Capacity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("Concentration")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("FertilizerComposition")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FertilizerUnit")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("Money");
@@ -309,16 +309,19 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Capacity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PesticideComposition")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PesticideUnit")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("Money");
@@ -332,6 +335,9 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<int>("TypeProductId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
@@ -340,6 +346,8 @@ namespace GospoRol.Infrastructure.Migrations
                     b.HasIndex("TypePesticideId");
 
                     b.HasIndex("TypeProductId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("WarehouseId");
 
@@ -357,10 +365,10 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Capacity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("NamePlant")
                         .HasColumnType("nvarchar(max)");
@@ -373,6 +381,9 @@ namespace GospoRol.Infrastructure.Migrations
 
                     b.Property<string>("Producer")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeedUnit")
+                        .HasColumnType("int");
 
                     b.Property<int>("TypeProductId")
                         .HasColumnType("int");
@@ -553,9 +564,9 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Count")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<int>("HarvestRef")
+                    b.Property<int?>("HarvestRef")
                         .HasColumnType("int");
 
                     b.Property<string>("NamePlant")
@@ -567,19 +578,20 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<int>("TypeProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Unit")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("YieldUnit")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HarvestRef")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[HarvestRef] IS NOT NULL");
 
                     b.HasIndex("TypeProductId");
 
@@ -597,8 +609,11 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
@@ -606,13 +621,16 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<DateTime>("DateTreatment")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PlantVariety")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("TypeCultivationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeCultivationId")
+                    b.Property<int>("TypeTreatmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -620,9 +638,11 @@ namespace GospoRol.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("FieldId");
 
                     b.HasIndex("TypeCultivationId");
+
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -636,8 +656,11 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
@@ -645,19 +668,25 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<DateTime>("DateTreatment")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("FertilizationUnit")
+                        .HasColumnType("int");
+
                     b.Property<int>("FertilizerId")
                         .HasColumnType("int");
 
-                    b.Property<double>("HowManyHa")
-                        .HasColumnType("float");
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("HowManyHa")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("PlantVariety")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("TypeFertilizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeFertilizationId")
+                    b.Property<int>("TypeTreatmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -667,9 +696,11 @@ namespace GospoRol.Infrastructure.Migrations
 
                     b.HasIndex("FertilizerId");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("FieldId");
 
                     b.HasIndex("TypeFertilizationId");
+
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -683,8 +714,11 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
@@ -693,7 +727,10 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Efficiency")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsPostHarvestResidue")
                         .HasColumnType("bit");
@@ -701,7 +738,7 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("PlantVariety")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("TypeTreatmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -709,7 +746,9 @@ namespace GospoRol.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("FieldId");
+
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -723,14 +762,20 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTreatment")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
 
                     b.Property<int>("NumberInterRows")
                         .HasColumnType("int");
@@ -741,7 +786,7 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("TypeTreatmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -749,7 +794,9 @@ namespace GospoRol.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("FieldId");
+
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -763,8 +810,11 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
@@ -773,10 +823,13 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("DepthSowing")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("HowManyHa")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("NumberRows")
                         .HasColumnType("int");
@@ -784,28 +837,33 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("PlantVariety")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SeedId")
+                    b.Property<int?>("SeedId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("SowingUnit")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeSowingId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TypeTreatmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("WidthBetweenRows")
-                        .HasColumnType("float");
+                    b.Property<decimal>("WidthBetweenRows")
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FieldId");
+
                     b.HasIndex("SeedId");
 
-                    b.HasIndex("TreatmentId");
-
                     b.HasIndex("TypeSowingId");
+
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
@@ -819,8 +877,11 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area")
-                        .HasColumnType("float");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CultivatedPlant")
                         .HasColumnType("nvarchar(max)");
@@ -829,7 +890,10 @@ namespace GospoRol.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Dose")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameProduct")
                         .HasColumnType("nvarchar(max)");
@@ -843,46 +907,26 @@ namespace GospoRol.Infrastructure.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("SprayingUnit")
                         .HasColumnType("int");
 
-                    b.Property<string>("Unit")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TypeTreatmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FieldId");
+
                     b.HasIndex("PesticideId");
 
-                    b.HasIndex("TreatmentId");
+                    b.HasIndex("TypeTreatmentId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Sprayings");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Treatment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("FieldId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeTreatmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FieldId");
-
-                    b.HasIndex("TypeTreatmentId");
-
-                    b.ToTable("Treatments");
                 });
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.TypeCultivation", b =>
@@ -1265,6 +1309,10 @@ namespace GospoRol.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.HasOne("GospoRol.Domain.Models.Places.Warehouse", "Warehouse")
                         .WithMany("Pesticides")
                         .HasForeignKey("WarehouseId")
@@ -1295,9 +1343,7 @@ namespace GospoRol.Infrastructure.Migrations
                 {
                     b.HasOne("GospoRol.Domain.Models.Treatments.Harvest", "Harvest")
                         .WithOne("Yield")
-                        .HasForeignKey("GospoRol.Domain.Models.Products.Yield", "HarvestRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GospoRol.Domain.Models.Products.Yield", "HarvestRef");
 
                     b.HasOne("GospoRol.Domain.Models.Products.TypeProduct", "TypeProduct")
                         .WithMany()
@@ -1318,15 +1364,21 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Cultivation", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
-                        .WithMany("Cultivatings")
-                        .HasForeignKey("TreatmentId")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GospoRol.Domain.Models.Treatments.TypeCultivation", "TypeCultivation")
                         .WithMany("Cultivations")
                         .HasForeignKey("TypeCultivationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
+                        .WithMany("Cultivatings")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1343,15 +1395,21 @@ namespace GospoRol.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
-                        .WithMany("Fertilizations")
-                        .HasForeignKey("TreatmentId")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GospoRol.Domain.Models.Treatments.TypeFertilization", "TypeFertilization")
                         .WithMany("Fertilizations")
                         .HasForeignKey("TypeFertilizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
+                        .WithMany("Fertilizations")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1362,9 +1420,15 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Harvest", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
                         .WithMany("Harvests")
-                        .HasForeignKey("TreatmentId")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1375,9 +1439,15 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.MechanicalWeedControl", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
                         .WithMany("MechanicalWeedControls")
-                        .HasForeignKey("TreatmentId")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1388,21 +1458,25 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Sowing", b =>
                 {
-                    b.HasOne("GospoRol.Domain.Models.Products.Seed", "Seed")
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
                         .WithMany("Sowings")
-                        .HasForeignKey("SeedId")
+                        .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
+                    b.HasOne("GospoRol.Domain.Models.Products.Seed", null)
                         .WithMany("Sowings")
-                        .HasForeignKey("TreatmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeedId");
 
                     b.HasOne("GospoRol.Domain.Models.Treatments.TypeSowing", "TypeSowing")
                         .WithMany("Sowings")
                         .HasForeignKey("TypeSowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
+                        .WithMany("Sowings")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1413,34 +1487,27 @@ namespace GospoRol.Infrastructure.Migrations
 
             modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Spraying", b =>
                 {
+                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GospoRol.Domain.Models.Products.Pesticide", "Pesticide")
                         .WithMany("Sprayings")
                         .HasForeignKey("PesticideId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GospoRol.Domain.Models.Treatments.Treatment", "Treatment")
+                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
                         .WithMany("Sprayings")
-                        .HasForeignKey("TreatmentId")
+                        .HasForeignKey("TypeTreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GospoRol.Domain.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("GospoRol.Domain.Models.Treatments.Treatment", b =>
-                {
-                    b.HasOne("GospoRol.Domain.Models.Places.Field", "Field")
-                        .WithMany("Treatments")
-                        .HasForeignKey("FieldId");
-
-                    b.HasOne("GospoRol.Domain.Models.Treatments.TypeTreatment", "TypeTreatment")
-                        .WithMany("Treatments")
-                        .HasForeignKey("TypeTreatmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

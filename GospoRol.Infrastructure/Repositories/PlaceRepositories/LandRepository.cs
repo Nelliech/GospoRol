@@ -21,21 +21,21 @@ namespace GospoRol.Infrastructure.Repositories.PlaceRepositories
        
 
         }
-        public int AddLand(Land land)
-        {
-            _context.Lands.Add(land);
-            _context.SaveChanges();
-            return land.Id;
-        }
-        public void DeleteLand(int landId)
-        {
-            var land = _context.Lands.Find(landId);
-            if (land != null)
-            {
-                _context.Lands.Remove(land);
-                _context.SaveChanges();
-            }
-        }
+        //public int AddLand(Land land)
+        //{
+        //    _context.Lands.Add(land);
+        //    _context.SaveChanges();
+        //    return land.Id;
+        //}
+        //public void DeleteLand(int landId)
+        //{
+        //    var land = _context.Lands.Find(landId);
+        //    if (land != null)
+        //    {
+        //        _context.Lands.Remove(land);
+        //        _context.SaveChanges();
+        //    }
+        //}
         public void ChangeAcreageOccupied(decimal acreageFields, int landId)
         {
             var land = _context.Lands.Find(landId);

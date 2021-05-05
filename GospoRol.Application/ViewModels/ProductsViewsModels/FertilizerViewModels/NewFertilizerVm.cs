@@ -13,6 +13,7 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewMode
     public class NewFertilizerVm : IMapFrom<Fertilizer>
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         [DisplayName("Producent")]
         public string Producer { get; set; }           
         [DisplayName("Skład Nawozu")]
@@ -21,6 +22,8 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewMode
         public string Concentration { get; set; }
         [DisplayName("Pojemność opakowania")]
         public decimal Capacity { get; set; }
+        [DisplayName("Jednostka")]
+        public FertilizerUnit FertilizerUnit { get; set; }
         [DisplayName("Obecna Ilość")]
         public decimal CurrentAmount { get; set; }
         [DisplayName("Cena")]

@@ -19,6 +19,8 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels
         public decimal Capacity { get; set; }
         [DisplayName("Obecna Ilość")]
         public decimal CurrentAmount { get; set; }
+        [DisplayName("Jednostka")]
+        public SeedUnit SeedUnit { get; set; }
         [DisplayName("Cena")]
         public decimal Price { get; set; }
         [DisplayName("Dodatkowe informacje")]

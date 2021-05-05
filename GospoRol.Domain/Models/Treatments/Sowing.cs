@@ -1,21 +1,31 @@
-﻿using System;
-using GospoRol.Domain.Models.Products;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GospoRol.Domain.Models.Treatments
 {
     public class Sowing : BaseTreatment                           //Siew
     {
-        public double WidthBetweenRows { get; set; }//szerokość rzedow 
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal WidthBetweenRows { get; set; }//szerokość rzedow 
         public int NumberRows { get; set; }//ilość rzędów 
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal HowManyHa { get; set; }       //Ile na ha(sztuk/mk2, kg/ha, ) ----
-        public decimal DepthSowing { get; set; }
-        public int SeedId { get; set; }
-        public virtual Seed Seed { get; set; }
+        public SowingUnit SowingUnit { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal DepthSowing { get; set; } //głębokość siewu [ mm ]
         public int TypeSowingId { get; set; }       //Metody siewu (Siew gniazdowy,Siew punktowy,Siew rzędowy,Siew rzutowy)
         public virtual TypeSowing TypeSowing { get; set; }
-        public int TreatmentId { get; set; }
-        public Treatment Treatment { get; set; }
         
+        
+    }
 
+    public enum SowingUnit
+    {
+        [Display(Name = "szt/ha")]
+        SztHa,
+        [Display(Name = "kg/ha")]
+        KgHa,
     }
 }

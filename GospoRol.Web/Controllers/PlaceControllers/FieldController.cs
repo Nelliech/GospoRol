@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using GospoRol.Application.Interfaces;
+﻿using System.Security.Claims;
 using GospoRol.Application.Interfaces.PlaceInterfaces;
-using GospoRol.Application.ViewModels;
 using GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels;
-using GospoRol.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace GospoRol.Web.Controllers
+namespace GospoRol.Web.Controllers.PlaceControllers
 {
     [Authorize]
     public class FieldController : Controller
@@ -22,7 +14,7 @@ namespace GospoRol.Web.Controllers
         private readonly ILandService _landService;
         private readonly IAgriculturalClassService _agriculturalClassService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private string userId;
         public FieldController(IFieldService fieldService, ILandService landService, IHttpContextAccessor htppContextAccessor,
             IAgriculturalClassService agriculturalClassService)
         {
@@ -30,29 +22,33 @@ namespace GospoRol.Web.Controllers
             _landService = landService;
             _agriculturalClassService = agriculturalClassService;
             _httpContextAccessor = htppContextAccessor;
+            userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         public IActionResult Index()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             var model = _fieldService.GetAllFieldForList(userId);
             return View(model);
         }
 
         public IActionResult AddField()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var land = _landService.GetAllLandForList(userId);
+            if(land.Count == 0)
+            {
+                return RedirectToAction("LandDontExist");
+            }
             //Dropdown list with plot number
-            var modelLand = _landService.GetAllLandForListDrop(userId).Name;
-            var landSelectList = modelLand.Select(f => new SelectListItem(f.PlotNumber, Convert.ToString(f.Id))).ToList();
+            var landSelectList = _landService.GetAllLandForSelectList(userId);
             //Dropdown list with agricultural Class
-            var modelAgrClass = _agriculturalClassService.GetAllAgriculturalClassForList().Classes;
-            var agrClassSelectList =
-                modelAgrClass.Select(f => new SelectListItem(f.Class, Convert.ToString(f.Id))).ToList();
+            var agrClassSelectList = _agriculturalClassService.GetAllAgriculturalClassForSelectList();
 
+            var viewModel = new NewFieldVm()
+            {
+                Lands = landSelectList,
+                AgriculturalClasses = agrClassSelectList
+            };
 
-            var viewModel = new NewFieldVm();
-            viewModel.Lands = landSelectList;
-            viewModel.AgriculturalClasses = agrClassSelectList;
             return View(viewModel);
         }
 
@@ -60,11 +56,15 @@ namespace GospoRol.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddField(NewFieldVm model, int landId)
         {
-           
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var land = _landService.GetLandById(landId);
+            if(land.AcreageFree < model.Acreage)
+            {
+                return RedirectToAction("NoFreeAcreage", new { landName = land.PlotNumber });
+            }
+            
             if (ModelState.IsValid)
             {
-                var id = _fieldService.AddField(model, landId, userId);
+                _fieldService.AddField(model, landId, userId);
                 return RedirectToAction("Index");
             }
 
@@ -73,11 +73,14 @@ namespace GospoRol.Web.Controllers
 
         public IActionResult EditField(int id)
         {
-            var modelAgrClass = _agriculturalClassService.GetAllAgriculturalClassForList().Classes;
-            var agrClassSelectList =
-                modelAgrClass.Select(f => new SelectListItem(f.Class, Convert.ToString(f.Id))).ToList();
 
-            var field = _fieldService.GetFieldById(id);
+            var agrClassSelectList = _agriculturalClassService.GetAllAgriculturalClassForSelectList();
+
+            var field = _fieldService.GetFieldForEditById(id);
+            if (field.UserId != userId)
+            {
+                return RedirectToAction("Index");
+            }
             field.AgriculturalClasses = agrClassSelectList;
             
             
@@ -85,7 +88,7 @@ namespace GospoRol.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditField(NewFieldVm model)
+        public IActionResult EditField(EditFieldVm model)
         {
             if (ModelState.IsValid)
             {
@@ -96,8 +99,24 @@ namespace GospoRol.Web.Controllers
         }
         public IActionResult DeleteField(int id)
         {
+            var fieldUserId = _fieldService.GetFieldById(id).UserId;
+            if (fieldUserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
             _fieldService.DeleteField(id);
             return RedirectToAction("Index");
+        }
+        public IActionResult NoFreeAcreage(string landName)
+        {
+            ViewBag.LandName = landName;
+            return View();
+        }
+
+        public IActionResult LandDontExist()
+        {
+            return View();
         }
     }
 }

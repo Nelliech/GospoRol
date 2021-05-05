@@ -1,7 +1,7 @@
 ﻿@model GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels.ListFieldForListVm
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Twoje Pola";
 }
 
 <h1>Twoje Pola</h1>
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fields[0].Land)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fields[0].FieldName)
             </th>
@@ -27,15 +30,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fields[0].AgriculturalClass)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fields[0].Land)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Fields) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Land.PlotNumber)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FieldName)
             </td>
@@ -52,12 +56,9 @@
                 @Html.DisplayFor(modelItem => item.AgriculturalClass.Class)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Land.PlotNumber)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "EditField", new {item.Id}) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Usuń", "DeleteField", new {item.Id})
+                @Html.ActionLink("Edytuj", "EditField", new { item.Id }) |
+                @Html.ActionLink("Szczegóły", "DetailsField", new { item.Id }) |
+                @Html.ActionLink("Usuń", "DeleteField", new { item.Id })
             </td>
         </tr>
 }

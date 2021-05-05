@@ -7,7 +7,6 @@ namespace GospoRol.Domain.Models.Treatments
     {
         public int NumberInterRows { get; set; }
         public string Reason { get; set; }              //Powód zastosowania  
-        public int TreatmentId { get; set; }
-        public Treatment Treatment { get; set; }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -11,32 +12,29 @@ using GospoRol.Domain.Interfaces;
 using GospoRol.Domain.Interfaces.PlaceInterfaces;
 using GospoRol.Domain.Models;
 using GospoRol.Domain.Models.Places;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GospoRol.Application.Services.PlaceServices
 {
     public class LandService : ILandService
     {
         private readonly ILandRepository _landRepository;
+        private readonly IGenericRepository _genericRepository;
         private readonly IMapper _mapper;
-        public LandService(ILandRepository landRepository, IMapper mapper)
+        public LandService(ILandRepository landRepository,IGenericRepository genericRepository, IMapper mapper)
         {
             _landRepository = landRepository;
+            _genericRepository = genericRepository;
             _mapper = mapper;
         }
-        public int AddLand(NewLandVm newLand, string userId)
+        public void AddLand(NewLandVm newLand, string userId)
         {
             var land = _mapper.Map<Land>(newLand);
             land.AcreageFree = land.Acreage;
             land.AcreageOccupied = 0;
             land.UserId = userId;
 
-            var id = _landRepository.AddLand(land);
-            return id;
-
-        }
-        public int AddLand(NewLandVm land)
-        {
-            throw new System.NotImplementedException();
+            _genericRepository.Add<Land>(land);
         }
         public ListLandForListVm GetAllLandForList(string userId)
         {
@@ -49,14 +47,12 @@ namespace GospoRol.Application.Services.PlaceServices
             };
             return landList;
         }
-        public ListLandNameForListVm GetAllLandForListDrop(string userId)
+
+        public List<SelectListItem> GetAllLandForSelectList(string userId)
         {
-            var lands = _landRepository.GetAllLand(userId).ProjectTo<LandNameToListVm>(_mapper.ConfigurationProvider).ToList();
-            var landList = new ListLandNameForListVm()
-            {
-                Name = lands
-            };
-            return landList;
+            var modelLand = GetAllLandForList(userId).Lands;
+            var landSelectList = modelLand.Select(f => new SelectListItem(f.PlotNumber, Convert.ToString(f.Id))).ToList();
+            return landSelectList;
         }
 
         public NewLandVm GetLandById(int landId)
@@ -80,10 +76,9 @@ namespace GospoRol.Application.Services.PlaceServices
             _landRepository.UpdateLand(newLand);
 
         }
-
         public void DeleteLand(int landId)
         {
-            _landRepository.DeleteLand(landId);
+            _genericRepository.Delete<Land>(landId);
         }
     }
 }

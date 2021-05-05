@@ -11,21 +11,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 
-namespace GospoRol.Web.Controllers
+namespace GospoRol.Web.Controllers.PlaceControllers
 {
     [Authorize]
     public class WarehouseController : Controller
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWarehouseService _warehouseService;
+        private string userId;
         public WarehouseController(IWarehouseService warehouseService, IHttpContextAccessor httpContextAccessor)
         {
             _warehouseService = warehouseService;
             _httpContextAccessor = httpContextAccessor;
+            userId= _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         public IActionResult Index()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var model = _warehouseService.GetAllWarehouseForList(userId);
             return View(model);
         }
@@ -38,10 +39,10 @@ namespace GospoRol.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddWarehouse(NewWarehouseVm model)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             if (ModelState.IsValid)
             {
-                var id = _warehouseService.AddWarehouse(model, userId);
+                _warehouseService.AddWarehouse(model, userId);
                 return RedirectToAction("Index");
             }
 
@@ -51,6 +52,11 @@ namespace GospoRol.Web.Controllers
         public IActionResult EditWarehouse(int id)
         {
             var warehouse = _warehouseService.GetWarehouseById(id);
+            if (warehouse.UserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
             return View(warehouse);
         }
         [HttpPost]
@@ -68,11 +74,21 @@ namespace GospoRol.Web.Controllers
         public IActionResult DeleteWarehouse(int id) 
         {
             var warehouse = _warehouseService.GetWarehouseAndCountProductsById(id);
+            if (warehouse.UserId != userId)
+            {
+                return RedirectToAction("Index");
+
+            }
             return View(warehouse);
         }
 
         public IActionResult DeleteWarehouseContinue(int id)
         {
+            var warehouseUserId = _warehouseService.GetWarehouseById(id).UserId;
+            if (warehouseUserId!=userId)
+            {
+                return RedirectToAction("Index");
+            }
             _warehouseService.DeleteWarehouse(id);
             return RedirectToAction("Index");
 
@@ -81,6 +97,10 @@ namespace GospoRol.Web.Controllers
         public IActionResult DetailsWarehouse(int id)
         {
             var warehouse = _warehouseService.GetWarehouseById(id);
+            if (warehouse.UserId != userId)
+            {
+                return RedirectToAction("Index");
+            }
             return View(warehouse);
         }
     }

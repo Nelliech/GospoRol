@@ -13,6 +13,7 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels
     public class NewSeedVm : IMapFrom<Seed>
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         [DisplayName("Nazwa Rosliny")]
         public string NamePlant { get; set; }
         [DisplayName("Odmiana Rosliny")]
@@ -23,12 +24,14 @@ namespace GospoRol.Application.ViewModels.ProductsViewsModels.SeedViewModels
         public decimal Capacity { get; set; }
         [DisplayName("Obecna Ilość")]
         public decimal CurrentAmount { get; set; }
+        [DisplayName("Jednostka")]
+        public SeedUnit SeedUnit { get; set; }
         [DisplayName("Cena")]
         public decimal Price { get; set; }
         [DisplayName("Dodatkowe informacje")]
         public string AdditionalInformation { get; set; }
-        public int WarehouseId { get; set; }
         [DisplayName("Nazwa Magazynu")]
+        public int WarehouseId { get; set; }
         public Warehouse Warehouse { get; set; }
         public List<SelectListItem> Warehouses { get; set; }
 

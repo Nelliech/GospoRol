@@ -1,4 +1,4 @@
-﻿@model GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels.NewFieldVm
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.FieldViewModels.EditFieldVm
 
 @{
     ViewData["Title"] = "EditField";
@@ -26,6 +26,9 @@
                 <span asp-validation-for="Acreage" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <input hidden asp-for="OldAcreage" class="form-control" />
+            </div>
+            @*<div class="form-group">
                 <label asp-for="CultivatedPlant" class="control-label"></label>
                 <input asp-for="CultivatedPlant" class="form-control" />
                 <span asp-validation-for="CultivatedPlant" class="text-danger"></span>
@@ -34,18 +37,13 @@
                 <label asp-for="Variety" class="control-label"></label>
                 <input asp-for="Variety" class="form-control" />
                 <span asp-validation-for="Variety" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DistanceToWarehouse" class="control-label"></label>
-                <input asp-for="DistanceToWarehouse" class="form-control" />
-                <span asp-validation-for="DistanceToWarehouse" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="AgriculturalClassId" class="control-label"></label>
                 <select asp-for="AgriculturalClassId" asp-items="@Model.AgriculturalClasses"></select>
             </div>
             <div class="form-group">
-                <input type="hidden"asp-for="LandId" class="form-control" />
+                <input type="hidden" asp-for="LandId" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Zapisz" class="btn btn-primary" />

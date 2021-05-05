@@ -1,0 +1,75 @@
+﻿@using GospoRol.Domain.Models.Products
+@model GospoRol.Application.ViewModels.ProductsViewsModels.PesticideViewModels.NewPesticideVm
+
+@{
+    ViewData["Title"] = "Dodaj Nowy Pestycyd";
+}
+
+<h1>Dodaj Nowy Pestycyd</h1>
+
+<h4>Dodaj nowy Pestycyd</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPesticide">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden="" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="WarehouseId" class="control-label"></label>
+                <select asp-for="WarehouseId" asp-items="@Model.Warehouses"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypePesticideId" class="control-label"></label>
+                <select asp-for="TypePesticideId" asp-items="@Model.TypePesticide"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label"></label>
+                <input asp-for="Producer" class="form-control" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PesticideComposition" class="control-label"></label>
+                <input asp-for="PesticideComposition" class="form-control" />
+                <span asp-validation-for="PesticideComposition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PesticideUnit" class="control-label"></label>
+                <select asp-for="PesticideUnit" class="form-control" asp-items="@Html.GetEnumSelectList<PesticideUnit>()"></select>
+            </div>
+            <div class="form-group">
+                <input hidden="" asp-for="CurrentAmount" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInformation" class="control-label"></label>
+                <textarea asp-for="AdditionalInformation" class="form-control"></textarea>
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Dodaj Pestycyd" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróć</a>
+</div>
+

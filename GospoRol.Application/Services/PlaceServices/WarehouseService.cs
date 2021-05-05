@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GospoRol.Application.Interfaces;
@@ -9,25 +11,27 @@ using GospoRol.Domain.Interfaces.PlaceInterfaces;
 using GospoRol.Domain.Models;
 using GospoRol.Domain.Models.Places;
 using GospoRol.Domain.Models.Products;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GospoRol.Application.Services.PlaceServices
 {
     public class WarehouseService : IWarehouseService
     {
         private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IGenericRepository _genericRepository;
         private readonly IMapper _mapper;
 
-        public WarehouseService(IWarehouseRepository warehouseRepository, IMapper mapper)
+        public WarehouseService(IWarehouseRepository warehouseRepository, IGenericRepository genericRepository, IMapper mapper)
         {
             _warehouseRepository = warehouseRepository;
+            _genericRepository = genericRepository;
             _mapper = mapper;
         }
-        public int AddWarehouse(NewWarehouseVm newWarehouse, string userId)
+        public void AddWarehouse(NewWarehouseVm newWarehouse, string userId)
         {
             var warehouse = _mapper.Map<Warehouse>(newWarehouse);
             warehouse.UserId = userId;
-            var warehouseId = _warehouseRepository.AddWarehouse(warehouse);
-            return warehouseId;
+            _genericRepository.Add<Warehouse>(warehouse);            
         }
 
         public ListWarehouseForListVm GetAllWarehouseForList(string userId)
@@ -44,6 +48,15 @@ namespace GospoRol.Application.Services.PlaceServices
             return warehouseList;
         }
 
+        public List<SelectListItem> GetAllWarehouseForSelectList(string userId)
+        {
+            var modelWarehouse =GetAllWarehouseForList(userId).Warehouses;
+            var warehouseSelectList =
+                modelWarehouse.Select(f => new SelectListItem(f.Name, Convert.ToString(f.Id))).ToList();
+            return warehouseSelectList;
+        }
+
+
         public WarehouseVm GetWarehouseById(int warehouseId)
         {
             var warehouse = _warehouseRepository.GetWarehouseById(warehouseId);
@@ -59,7 +72,7 @@ namespace GospoRol.Application.Services.PlaceServices
 
         public void DeleteWarehouse(int warehouseId)
         {
-            _warehouseRepository.DeleteWarehouse(warehouseId);
+            _genericRepository.Delete<Warehouse>(warehouseId);
         }
 
         public WarehouseForListVm GetWarehouseAndCountProductsById(int warehouseId)

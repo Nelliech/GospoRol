@@ -1,0 +1,71 @@
+﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels.NewFertilizerVm
+
+@{
+    ViewData["Title"] = "Edycja Nawozu";
+}
+
+<h1>Edytuj Nawóz</h1>
+
+<h4>Edytuj Nawóz</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditFertilizer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeFertilizerId" class="control-label"></label><br />
+                <select asp-for="TypeFertilizerId" asp-items="@Model.TypeFertilizers"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WarehouseId" class="control-label"></label><br />
+                <select asp-for="WarehouseId" asp-items="@Model.Warehouses"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label"></label>
+                <input asp-for="Producer" class="form-control" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FertilizerComposition" class="control-label"></label>
+                <input asp-for="FertilizerComposition" class="form-control" />
+                <span asp-validation-for="FertilizerComposition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Concentration" class="control-label"></label>
+                <input asp-for="Concentration" class="form-control" />
+                <span asp-validation-for="Concentration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentAmount" class="control-label"></label>
+                <input asp-for="CurrentAmount" class="form-control" />
+                <span asp-validation-for="CurrentAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInformation" class="control-label"></label>
+                <input asp-for="AdditionalInformation" class="form-control" />
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróćt</a>
+</div>
+

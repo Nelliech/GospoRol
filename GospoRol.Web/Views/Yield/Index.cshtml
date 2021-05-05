@@ -1,0 +1,57 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model GospoRol.Application.ViewModels.ProductsViewsModels.YieldViewModels.ListYieldForListVm
+
+@{
+    ViewData["Title"] = "Plony Rolne";
+}
+
+<h1>Towje Plony Rolne</h1>
+
+<p>
+    <a asp-action="AddYield">Dodaj Nowy Plon Rolny</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Yields[0].NamePlant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yields[0].PlantVariety)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yields[0].Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yields[0].Warehouse)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Yields) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePlant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantVariety)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+                @Html.DisplayFor(modelItem => item.YieldUnit)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouse.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "EditYield", new {item.Id}) |
+                @Html.ActionLink("Szczegóły", "DetailsYield", new { item.Id }) |
+                @Html.ActionLink("Usuń", "DeleteYield", new { item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

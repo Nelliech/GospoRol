@@ -1,15 +1,15 @@
 ﻿@model GospoRol.Application.ViewModels.ProductsViewsModels.FertilizerViewModels.ListFertilizerForListVm
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Twoje Nawozy";
 }
 
-<h1>Index</h1>
+<h1>Twoje Nawozy</h1>
 
 <p>
-    <a asp-action="AddFertilizer">Create New</a>
+    <a asp-action="AddFertilizer">Dodaj Nowy Nawóz</a>
 </p>
-<table class="table">v
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -36,9 +36,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fertilizers[0].Price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fertilizers[0].AdditionalInformation)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -58,24 +55,24 @@
                 @Html.DisplayFor(modelItem => item.FertilizerComposition)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Concentration)
+                @Html.DisplayFor(modelItem => item.Concentration)%
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Capacity)
+                @Html.DisplayFor(modelItem => item.FertilizerUnit)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CurrentAmount)
+                @Html.DisplayFor(modelItem => item.FertilizerUnit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price) zł
+                @Html.DisplayFor(modelItem => item.Price)zł
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AdditionalInformation)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                @Html.ActionLink("Edit", "EditFertilizer", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Details", "DetailsFertilizer", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "DeleteFertilizer", new {/* id=item.PrimaryKey */})
             </td>
         </tr>
 }

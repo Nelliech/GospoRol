@@ -1,0 +1,201 @@
+﻿@model GospoRol.Application.ViewModels.PlaceViewModels.WarehouseViewModels.WarehouseVm
+
+@{
+
+    ViewData["Title"] = "DetailsWarehouse";
+}
+
+<h1>Szczegóły Magazynu</h1>
+
+<div>
+    <h4>Magazyn</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Acreage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Acreage)
+        </dd>
+    </dl>
+    <table class="table">
+
+        @if (Model.Seeds.Count() != 0)// Seeds
+        {
+
+
+            <thead>
+                Nasiona:
+                <tr>
+                    <th>
+                        <span>Nazwa Rosliny</span>
+                    </th>
+                    <th>
+                        <span>Odmiana Rosliny</span>
+                    </th>
+                    <th>
+                        <span>Producent</span>
+                    </th>
+                    <th>
+                        <span>Obecna Ilość</span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Seeds)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NamePlant)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlantVariety)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Producer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CurrentAmount)kg
+                        </td>
+                        <td>
+                            @Html.ActionLink("Szczegóły", "DetailsSeed", "Seed", new { item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+
+        @if (Model.Fertilizers.Count != 0)  //Fertilizers
+        {
+            <thead>
+                Nawozy:
+                <tr>
+                    <th>
+                        <span>Rodzaj Nawozu</span>
+                    </th>
+                    <th>
+                        <span>Producent</span>
+                    </th>
+                    <th>
+                        <span>Formuła Nawozu</span>
+                    </th>
+                    <th>
+                        <span>Obecna Ilość</span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.Fertilizers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeFertilizer.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FertilizerComposition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentAmount)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "DetailsFertilizer", "Fertilizer", new { item.Id }) |
+                    </td>
+                </tr>
+            }
+
+        }
+        @if (Model.Pesticides.Count != 0)
+        {
+            <thead>
+                Pestycydy
+                <tr>
+                    <th>
+                        <span>Rodzaj Pestycydu</span>
+                    </th>
+                    <th>
+                        <span>Producent</span>
+                    </th>
+                    <th>
+                        <span>Nazwa</span>
+                    </th>
+                    <th>
+                        <span>Obecna Ilość</span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.Pesticides)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypePesticide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentAmount) @Html.DisplayFor(modelItem => item.PesticideUnit)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "DetailsPesticide", "Pesticide", new { item.Id }) |
+                    </td>
+                </tr>
+            }
+
+        }
+        @if (Model.Yields.Count != 0)
+        {
+            <thead>
+                Plony Rolne:
+                <tr>
+                    <th>
+                        <span>Nazwa Rośliny</span>
+                    </th>
+                    <th>
+                        <span>Odmiana Rosliny</span>
+                    </th>
+                    <th>
+                        <span>Obecna Ilość</span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.Yields)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NamePlant)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlantVariety)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count) @Html.DisplayFor(modelItem => item.YieldUnit)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "DetailsYield", "Yield", new { item.Id }) |
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Edytuj", "EditWarehouse", new {Model.Id}) |
+    <a asp-action="Index">Wróć</a>
+</div>
